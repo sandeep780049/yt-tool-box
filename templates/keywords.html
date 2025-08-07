@@ -1,1 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="tool-container">
+    <h1 class="tool-heading">🔑 YouTube Keyword Generator</h1>
+    <form method="POST">
+        <input type="text" name="video_title" placeholder="Enter your video title..." required>
+        <button type="submit">Generate Keywords</button>
+    </form>
 
+    {% if keywords %}
+        <div class="output-box">
+            <h2>🎯 Generated Keywords:</h2>
+            <textarea readonly id="keywordsOutput">{{ keywords }}</textarea>
+            <div class="button-row">
+                <button onclick="copyToClipboard('keywordsOutput')">📋 Copy</button>
+                <a href="/download?type=keywords" class="download-btn">⬇️ Download</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class="info-section">
+    <h2>What Are Keywords?</h2>
+    <p>Keywords help YouTube understand what your content is about. Proper keywords boost your video’s SEO ranking, making it easier for users to find your content. Always choose relevant, trending, and high-volume keywords to grow your channel faster. Use our generator to optimize your content today!</p>
+    
+    <p><strong>Bonus Tip:</strong> Boost your video quality using a high-performance phone like the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Smartphone</a> — perfect for content creators!</p>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
