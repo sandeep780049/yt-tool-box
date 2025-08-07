@@ -1,42 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Frequently asked questions about YouTube tools and how they help grow your channel with SEO optimization and content strategies.">
-    <meta name="keywords" content="YouTube FAQ, grow YouTube channel, SEO for YouTube, YouTube tools help">
-    <meta name="author" content="YT Tool Box">
-    <title>FAQ - YT Tool Box</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel="icon" href="/static/favicon.ico">
-</head>
-<body>
-    {% include 'navbar.html' %}
-    <main>
-        <section class="container">
-            <h1 class="highlight">Frequently Asked Questions</h1>
-            <div class="faq-item">
-                <h2 class="faq-question">What are YouTube tags?</h2>
-                <p class="faq-answer">Tags are keywords you add to your video to help YouTube understand the content of your video. They improve search visibility and boost SEO rankings.</p>
-            </div>
-            <div class="faq-item">
-                <h2 class="faq-question">Why is SEO important for YouTube?</h2>
-                <p class="faq-answer">SEO (Search Engine Optimization) ensures that your video appears in relevant searches. More visibility means more views and potential subscribers.</p>
-            </div>
-            <div class="faq-item">
-                <h2 class="faq-question">How can I grow my YouTube channel fast?</h2>
-                <p class="faq-answer">Use SEO tools to generate effective titles, tags, and descriptions. Engage your audience, upload consistently, and optimize your thumbnails.</p>
-            </div>
-            <div class="faq-item">
-                <h2 class="faq-question">What tools does YT Tool Box offer?</h2>
-                <p class="faq-answer">YT Tool Box offers a Tag Generator, Keyword Tool, AI Title/Description Creator, Thumbnail Downloader, and Channel Stats Viewer—all tailored to help your channel grow.</p>
-            </div>
-            <div class="faq-item">
-                <h2 class="faq-question">How does the Samsung phone help in content creation?</h2>
-                <p class="faq-answer">Want to record smooth 4K videos or edit your YouTube content easily? We recommend the Samsung Galaxy series. It's reliable, powerful, and creator-friendly. <a href="https://amzn.to/45q05Uz" target="_blank" style="color: red; font-weight: bold;">Buy Now on Amazon</a></p>
-            </div>
-        </section>
-    </main>
-    {% include 'footer.html' %}
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}FAQs - YT Tool Box{% endblock %}
+
+{% block content %}
+<div class="faq-section" style="padding: 20px; max-width: 800px; margin: auto;">
+    <h1 style="text-align: center; font-size: 2em; color: #e60000; text-shadow: 1px 1px 3px #aaa;">Frequently Asked Questions</h1>
+    
+    <div style="margin-top: 30px;">
+        <h3 style="color: #333;"><b>🔍 What are YouTube tags?</b></h3>
+        <p style="font-size: 15px; color: #555;">
+            Tags are keywords that help YouTube understand your content. Using relevant tags can improve your video’s SEO and help your channel grow by increasing discoverability.
+        </p>
+
+        <h3 style="color: #333;"><b>📸 What is a thumbnail?</b></h3>
+        <p style="font-size: 15px; color: #555;">
+            A thumbnail is the preview image of your video. It grabs the viewer’s attention. An eye-catching thumbnail can boost click-through rate and audience retention.
+        </p>
+
+        <h3 style="color: #333;"><b>🧠 What are AI-generated titles and descriptions?</b></h3>
+        <p style="font-size: 15px; color: #555;">
+            These are smart suggestions created by our AI engine to help your videos rank better and save your time. Good titles and descriptions mean more views and growth!
+        </p>
+
+        <h3 style="color: #333;"><b>📊 What does the Stats Viewer show?</b></h3>
+        <p style="font-size: 15px; color: #555;">
+            It helps you analyze a channel's performance. You can check subscriber count, video count, and other details that give insight into a channel's reach.
+        </p>
+
+        <h3 style="color: #333;"><b>🛠️ How can these tools help me grow?</b></h3>
+        <p style="font-size: 15px; color: #555;">
+            By using optimized tags, keywords, thumbnails, and descriptions, you improve your visibility. These tools are designed to save time and give your content a professional boost.
+        </p>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+        <h2 style="color: #e60000;">🔥 Recommended Product for YouTubers</h2>
+        <p style="font-size: 15px; color: #444;">Capture high-quality videos with this Samsung phone – perfect for creators! Powerful camera, long battery life, and smooth performance.</p>
+        <a href="https://amzn.to/45q05Uz" target="_blank">
+            <img src="https://m.media-amazon.com/images/I/61VfL-aiToL._SL1500_.jpg" alt="Samsung phone" style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.2); margin-top: 10px;">
+        </a>
+        <p style="margin-top: 10px;"><a href="https://amzn.to/45q05Uz" target="_blank" style="color: white; background: #e60000; padding: 10px 15px; border-radius: 8px; text-decoration: none;">Buy on Amazon</a></p>
+    </div>
+</div>
+{% endblock %}
