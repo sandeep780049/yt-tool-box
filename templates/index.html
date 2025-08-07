@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Tool Box</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YT Tool Box</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/thumbnail">Thumbnail Downloader</a></li>
-            <li><a href="/stats">My Stats Viewer</a></li>
-            <li><a href="/ai">AI Title & Description</a></li>
-        </ul>
-    </nav>
+  <nav class="navbar">
+    <h1 class="logo">YT Tool Box</h1>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/thumbnail">Thumbnail Downloader</a></li>
+      <li><a href="/tags">Tag Generator</a></li>
+      <li><a href="/keywords">Keyword Generator</a></li>
+      <li><a href="/stats">My Stats Viewer</a></li>
+      <li><a href="/ai">AI Title & Description</a></li>
+      <li><a href="/faq">FAQ</a></li>
+    </ul>
+  </nav>
 
-    <header>
-        <h1 class="big-red">Welcome</h1>
-        <h2 class="subheading">Welcome to YT Tool Box</h2>
-    </header>
+  <header class="header">
+    <h2 class="welcome-heading">Welcome to <span class="highlight">YT Tool Box</span></h2>
+    <p class="subheading">All-in-One YouTube Tools to Boost Your Channel 🚀</p>
+  </header>
 
-    <main>
-        <div class="tool-card">
-            <h3><a href="/thumbnail">Thumbnail Downloader</a></h3>
-            <p>Download any YouTube video thumbnail in full HD.</p>
-        </div>
+  <section class="tool-grid">
+    <div class="tool-card">
+      <h3><a href="/thumbnail">Thumbnail Downloader</a></h3>
+      <p>Download any YouTube thumbnail in HD quality instantly by just pasting the video link.</p>
+    </div>
+    <div class="tool-card">
+      <h3><a href="/tags">Tag Generator</a></h3>
+      <p>Generate high-performing SEO tags for your YouTube videos to help you rank better.</p>
+    </div>
+    <div class="tool-card">
+      <h3><a href="/keywords">Keyword Generator</a></h3>
+      <p>Discover the best keywords for your content and improve your channel's visibility.</p>
+    </div>
+    <div class="tool-card">
+      <h3><a href="/stats">Channel Stats Viewer</a></h3>
+      <p>View detailed channel statistics and understand your growth metrics.</p>
+    </div>
+    <div class="tool-card">
+      <h3><a href="/ai">AI Title & Description Generator</a></h3>
+      <p>Use AI to generate click-worthy titles and descriptions for your videos.</p>
+    </div>
+  </section>
 
-        <div class="tool-card">
-            <h3><a href="/tags">Tags Generator</a></h3>
-            <p>Generate SEO-friendly YouTube tags for more views.</p>
-        </div>
-
-        <div class="tool-card">
-            <h3><a href="/keywords">Keyword Generator</a></h3>
-            <p>Find the best keywords to grow your channel fast.</p>
-        </div>
-
-        <div class="tool-card">
-            <h3><a href="/stats">Channel Stats Viewer</a></h3>
-            <p>Track any channel's subscriber and view stats instantly.</p>
-        </div>
-
-        <div class="tool-card">
-            <h3><a href="/ai">AI Title & Description</a></h3>
-            <p>Create high-converting titles and descriptions using AI.</p>
-        </div>
-    </main>
-
-    <footer>
-        <a href="/what-is-tags">What are Tags?</a> |
-        <a href="/what-is-thumbnails">What are Thumbnails?</a> |
-        <a href="/what-is-keywords">What are Keywords?</a> |
-        <a href="/about_site">About This Site</a> |
-        <a href="/faq">FAQ</a>
-    </footer>
+  <footer class="footer-links">
+    <h3>More Resources</h3>
+    <ul>
+      <li><a href="/what-is-tags">What Are YouTube Tags?</a></li>
+      <li><a href="/what-is-thumbnails">What Are YouTube Thumbnails?</a></li>
+      <li><a href="/what-is-keywords">What Are YouTube Keywords?</a></li>
+      <li><a href="/about_site">About the Site</a></li>
+    </ul>
+  </footer>
 </body>
 </html>
