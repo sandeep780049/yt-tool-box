@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 
 app = Flask(__name__)
-
+@app.route('/what-is-tag')
+def tag_info():
+    return render_template('what-is-tag.html')
 @app.route('/')
 def index():
     tools = [
@@ -14,3 +16,4 @@ def index():
     return render_template('index.html', tools=tools)
 
 # Add proper routes for all tools (you already have this part)
+
