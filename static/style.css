@@ -1,1 +1,121 @@
 
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #ff0000;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #cc0000;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #b30000;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #ff0000;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #cc0000;
+}
+
+textarea {
+    height: 120px;
+}
+
+.hamburger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        background-color: #ff0000;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+    }
+
+    nav a {
+        padding: 12px;
+        border-top: 1px solid white;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
