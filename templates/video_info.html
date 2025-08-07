@@ -1,1 +1,57 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Info Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <h1>📊 Video Info Viewer</h1>
+        <p>Get details like title, duration, views, and publish date of any video!</p>
+        <nav id="nav">
+            <a href="/">Home</a>
+            <a href="/thumbnail">Thumbnail Downloader</a>
+            <a href="/tags">Tag Generator</a>
+            <a href="/stats">Channel Stats</a>
+            <a href="/ai">AI Title Generator</a>
+            <a href="/video_info">Video Info</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form method="post" class="card">
+            <label for="url">Enter YouTube Video URL:</label><br>
+            <input type="url" id="url" name="url" required style="width: 100%; margin-top: 10px;"><br><br>
+            <button type="submit">Get Info</button>
+        </form>
+
+        {% if info %}
+        <div class="card">
+            <h3>Video Title:</h3>
+            <p>{{ info.title }}</p>
+
+            <h3>Length:</h3>
+            <p>{{ info.length }} seconds</p>
+
+            <h3>Views:</h3>
+            <p>{{ info.views }}</p>
+
+            <h3>Publish Date:</h3>
+            <p>{{ info.publish_date }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+
+</body>
+</html>
