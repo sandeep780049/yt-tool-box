@@ -1,51 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="tool-container">
+    <h1 class="tool-heading">📊 YouTube Channel Stats Viewer</h1>
+    <form method="POST">
+        <input type="text" name="channel_url" placeholder="Paste your YouTube Channel URL..." required>
+        <button type="submit">Get Stats</button>
+    </form>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Channel Stats Viewer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+    {% if stats %}
+        <div class="output-box">
+            <h2>📈 Channel Statistics:</h2>
+            <textarea readonly id="statsOutput">
+Channel Name: {{ stats.name }}
+Subscribers: {{ stats.subscribers }}
+Total Views: {{ stats.views }}
+Total Videos: {{ stats.videos }}
+            </textarea>
 
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <h1>📊 Channel Stats Viewer</h1>
-        <p>Enter a channel ID to view subscribers, views, and video count.</p>
-        <nav id="nav">
-            <a href="/">Home</a>
-            <a href="/thumbnail">Thumbnail Downloader</a>
-            <a href="/tags">Tag Generator</a>
-            <a href="/stats">Channel Stats</a>
-            <a href="/ai">AI Title Generator</a>
-            <a href="/video_info">Video Info</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <form method="post" class="card">
-            <label for="channel_id">Channel ID or Name:</label><br>
-            <input type="text" name="channel_id" id="channel_id" required style="width: 100%; margin-top: 10px;"><br><br>
-            <button type="submit">View Stats</button>
-        </form>
-
-        {% if data %}
-        <div class="card">
-            <h3>Channel Info</h3>
-            <p><strong>Name:</strong> {{ data.channel_name }}</p>
-            <p><strong>Subscribers:</strong> {{ data.subscribers }}</p>
-            <p><strong>Total Views:</strong> {{ data.views }}</p>
-            <p><strong>Videos:</strong> {{ data.videos }}</p>
+            <div class="button-row">
+                <button onclick="copyToClipboard('statsOutput')">📋 Copy Stats</button>
+                <a href="/download?type=stats" class="download-btn">⬇️ Download</a>
+            </div>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
 
-    <script>
-        function toggleMenu() {
-            var nav = document.getElementById('nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        }
-    </script>
+<div class="info-section">
+    <h2>Why Monitor Your YouTube Channel Stats?</h2>
+    <p>Keeping track of your YouTube channel’s performance is essential for growth. Regularly checking subscribers, views, and video count helps you set goals and improve strategy. Use this tool to stay motivated and informed!</p>
 
-</body>
-</html>
+    <p><strong>Boost Tip:</strong> Upgrade your video quality with the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Creator Edition</a> — great camera and audio for vlogging and tutorials!</p>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
