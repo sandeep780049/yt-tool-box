@@ -1,1 +1,50 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Title & Description Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <h1>🤖 AI Title & Description Generator</h1>
+        <p>Generate catchy titles and descriptions from your video topic!</p>
+        <nav id="nav">
+            <a href="/">Home</a>
+            <a href="/thumbnail">Thumbnail Downloader</a>
+            <a href="/tags">Tag Generator</a>
+            <a href="/stats">Channel Stats</a>
+            <a href="/ai">AI Title Generator</a>
+            <a href="/video_info">Video Info</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form method="post" class="card">
+            <label for="topic">Video Topic:</label><br>
+            <input type="text" id="topic" name="topic" required style="width: 100%; margin-top: 10px;"><br><br>
+            <button type="submit">Generate</button>
+        </form>
+
+        {% if title and description %}
+        <div class="card">
+            <h3>Generated Title:</h3>
+            <p><strong>{{ title }}</strong></p>
+            <h3>Generated Description:</h3>
+            <p>{{ description }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+
+</body>
+</html>
