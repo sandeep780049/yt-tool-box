@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>YT Tool Box</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>YT Tool Box - All-in-One YouTube Tools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <nav class="navbar">
-    <h1 class="logo">YT Tool Box</h1>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/thumbnail">Thumbnail Downloader</a></li>
-      <li><a href="/tags">Tag Generator</a></li>
-      <li><a href="/keywords">Keyword Generator</a></li>
-      <li><a href="/stats">My Stats Viewer</a></li>
-      <li><a href="/ai">AI Title & Description</a></li>
-      <li><a href="/faq">FAQ</a></li>
-    </ul>
-  </nav>
+    <nav class="navbar">
+        <h1 class="logo">YT Tool Box</h1>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('thumbnail_downloader') }}">Thumbnail Downloader</a></li>
+            <li><a href="{{ url_for('tag_generator') }}">Tags Generator</a></li>
+            <li><a href="{{ url_for('keyword_generator') }}">Keywords Generator</a></li>
+            <li><a href="{{ url_for('channel_stats') }}">My Stats Viewer</a></li>
+            <li><a href="{{ url_for('ai_generator') }}">AI Title & Description</a></li>
+        </ul>
+    </nav>
 
-  <header class="header">
-    <h2 class="welcome-heading">Welcome to <span class="highlight">YT Tool Box</span></h2>
-    <p class="subheading">All-in-One YouTube Tools to Boost Your Channel 🚀</p>
-  </header>
+    <header class="main-header">
+        <h1 class="welcome-heading">Welcome</h1>
+        <h2 class="sub-heading">Welcome to YT Tool Box</h2>
+    </header>
 
-  <section class="tool-grid">
-    <div class="tool-card">
-      <h3><a href="/thumbnail">Thumbnail Downloader</a></h3>
-      <p>Download any YouTube thumbnail in HD quality instantly by just pasting the video link.</p>
-    </div>
-    <div class="tool-card">
-      <h3><a href="/tags">Tag Generator</a></h3>
-      <p>Generate high-performing SEO tags for your YouTube videos to help you rank better.</p>
-    </div>
-    <div class="tool-card">
-      <h3><a href="/keywords">Keyword Generator</a></h3>
-      <p>Discover the best keywords for your content and improve your channel's visibility.</p>
-    </div>
-    <div class="tool-card">
-      <h3><a href="/stats">Channel Stats Viewer</a></h3>
-      <p>View detailed channel statistics and understand your growth metrics.</p>
-    </div>
-    <div class="tool-card">
-      <h3><a href="/ai">AI Title & Description Generator</a></h3>
-      <p>Use AI to generate click-worthy titles and descriptions for your videos.</p>
-    </div>
-  </section>
+    <section class="tools-section">
+        <div class="tool-card">
+            <h3><a href="{{ url_for('thumbnail_downloader') }}">Thumbnail Downloader</a></h3>
+            <p>Download any YouTube video thumbnail in HD quality instantly.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="{{ url_for('tag_generator') }}">Tags Generator</a></h3>
+            <p>Generate trending SEO tags to help your videos reach more viewers.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="{{ url_for('keyword_generator') }}">Keywords Generator</a></h3>
+            <p>Get powerful keywords to boost your channel’s growth and visibility.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="{{ url_for('channel_stats') }}">My Stats Viewer</a></h3>
+            <p>See subscriber count, views, and other channel details quickly.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="{{ url_for('ai_generator') }}">AI Title & Description</a></h3>
+            <p>Generate optimized video titles and descriptions with one click.</p>
+        </div>
+    </section>
 
-  <footer class="footer-links">
-    <h3>More Resources</h3>
-    <ul>
-      <li><a href="/what-is-tags">What Are YouTube Tags?</a></li>
-      <li><a href="/what-is-thumbnails">What Are YouTube Thumbnails?</a></li>
-      <li><a href="/what-is-keywords">What Are YouTube Keywords?</a></li>
-      <li><a href="/about_site">About the Site</a></li>
-    </ul>
-  </footer>
+    <footer class="footer-links">
+        <h4>Learn More</h4>
+        <ul>
+            <li><a href="{{ url_for('what_is_tags') }}">What is Tags?</a></li>
+            <li><a href="{{ url_for('what_is_thumbnails') }}">What is Thumbnails?</a></li>
+            <li><a href="{{ url_for('what_is_keywords') }}">What is Keywords?</a></li>
+            <li><a href="{{ url_for('about_site') }}">About this Site</a></li>
+            <li><a href="{{ url_for('faq') }}">FAQs</a></li>
+        </ul>
+        <p>Affiliate: <a href="https://amzn.to/45q05Uz" target="_blank">Check this Samsung phone on Amazon</a></p>
+    </footer>
 </body>
 </html>
