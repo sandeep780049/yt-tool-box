@@ -1,172 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>YT Tool Box</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #f7f9fc;
-      color: #333;
-    }
-
-    header {
-      background: #ff0000;
-      color: #fff;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-    }
-
-    nav {
-      display: none;
-      flex-direction: column;
-      background-color: #ff0000;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 200px;
-      padding: 1rem;
-      z-index: 100;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 10px 0;
-    }
-
-    .hamburger {
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .welcome {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-    }
-
-    .welcome h1 {
-      font-size: 2rem;
-      color: #ff0000;
-    }
-
-    .welcome p {
-      font-size: 1rem;
-      color: #555;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 2rem;
-    }
-
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      color: #ff0000;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    @media (min-width: 768px) {
-      nav {
-        display: flex !important;
-        position: static;
-        flex-direction: row;
-        background: none;
-        width: auto;
-        justify-content: flex-end;
-      }
-
-      nav a {
-        margin: 0 1rem;
-      }
-
-      .hamburger {
-        display: none;
-      }
-    }
-  </style>
-  <script>
-    function toggleMenu() {
-      const nav = document.querySelector('nav');
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Tool Box</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">YT Tool Box</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/thumbnail">Thumbnail Downloader</a></li>
+            <li><a href="/tags">Tag & Keyword Generator</a></li>
+            <li><a href="/channel">Channel Stats Viewer</a></li>
+            <li><a href="/title">AI Title & Description</a></li>
+            <li><a href="/video_info">Video Info Viewer</a></li>
+        </ul>
+    </nav>
 
-<header>
-  <h1>YT Tool Box</h1>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/thumbnail">Thumbnail Downloader</a>
-    <a href="/tags">Tag Generator</a>
-    <a href="/channel">Channel Stats</a>
-    <a href="/title">AI Title Generator</a>
-    <a href="/video_info">Video Info</a>
-  </nav>
-</header>
+    <!-- Homepage Tools Section -->
+    <section class="tools-section">
+        <h1>Welcome to YT Tool Box</h1>
+        <p>All-in-One YouTube Tools to make content creation easier.</p>
+        <div class="tools-container">
 
-<div class="welcome">
-  <h1>Welcome to YouTube Tools Generator</h1>
-  <p>All-in-One Smart Toolset for YouTubers</p>
-</div>
+            <a href="/thumbnail" class="tool-card">
+                <h2>Thumbnail Downloader</h2>
+                <p>Download YouTube video thumbnails in high quality.</p>
+            </a>
 
-<div class="grid">
-  <div class="card">
-    <h3>Thumbnail Downloader</h3>
-    <p>Download any YouTube video's thumbnail in high quality instantly.</p>
-  </div>
-  <div class="card">
-    <h3>Tag Generator</h3>
-    <p>Get optimized tags for your video to boost SEO and reach.</p>
-  </div>
-  <div class="card">
-    <h3>Channel Stats Viewer</h3>
-    <p>See detailed subscriber, video, and view statistics of any channel.</p>
-  </div>
-  <div class="card">
-    <h3>AI Title Generator</h3>
-    <p>Create catchy, high-engagement video titles using AI.</p>
-  </div>
-  <div class="card">
-    <h3>Video Info Viewer</h3>
-    <p>Quickly get details about any YouTube video like duration, views, etc.</p>
-  </div>
-</div>
+            <a href="/tags" class="tool-card">
+                <h2>Tag & Keyword Generator</h2>
+                <p>Generate smart tags and keywords to improve video SEO.</p>
+            </a>
 
+            <a href="/channel" class="tool-card">
+                <h2>Channel Stats Viewer</h2>
+                <p>Check subscriber count, views, and more from any channel.</p>
+            </a>
+
+            <a href="/title" class="tool-card">
+                <h2>AI Title & Description Generator</h2>
+                <p>Use AI to auto-generate catchy titles and descriptions.</p>
+            </a>
+
+            <a href="/video_info" class="tool-card">
+                <h2>Video Info Viewer</h2>
+                <p>Get full details about any public YouTube video.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
