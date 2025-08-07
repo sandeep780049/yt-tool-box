@@ -1,37 +1,48 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
 @app.route('/thumbnail')
 def thumbnail():
-  return render_template('thumbnail.html')
+    return render_template('thumbnail.html')
+
+@app.route('/tags')
+def tags():
+    return render_template('tags.html')
 
 @app.route('/stats')
 def stats():
-  return render_template('stats.html')
+    return render_template('stats.html')
 
-@app.route('/ai-title-description')
-def ai_title():
-  return render_template('ai_title.html')
+@app.route('/ai')
+def ai():
+    return render_template('ai.html')
 
-@app.route('/faq')
-def faq():
-  return render_template('faq.html')
+@app.route('/video')
+def video():
+    return render_template('video.html')
 
-@app.route('/what-is-tag') 
-def what_is_tag(): 
-  return render_template('what_is_tag.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-@app.route('/what-is-thumbnail') 
+@app.route('/what-is-tag')
+def what_is_tag():
+    return render_template('what_is_tag.html')
+
+@app.route('/what-is-thumbnail')
 def what_is_thumbnail():
-  return render_template('what_is_thumbnail.html')
+    return render_template('what_is_thumbnail.html')
 
-@app.route('/about-site')
-def about_site():
-  return render_template('about_site.html')
+@app.route('/how-tags-help')
+def how_tags_help():
+    return render_template('how_tags_help.html')
 
-
-
+@app.route('/what-is-keyword')
+def what_is_keyword():
+    return render_template('what_is_keyword.html')
