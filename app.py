@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-app = Flask(name)
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -32,5 +32,6 @@ def what_is_thumbnail():
 @app.route('/about-site')
 def about_site():
   return render_template('about_site.html')
+
 
 
