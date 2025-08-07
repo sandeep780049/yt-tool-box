@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag & Keyword Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <h1>🏷️ Tag & Keyword Generator</h1>
+        <p>Enter a video URL or keyword to generate SEO-friendly tags.</p>
+        <nav id="nav">
+            <a href="/">Home</a>
+            <a href="/thumbnail">Thumbnail Downloader</a>
+            <a href="/tags">Tag Generator</a>
+            <a href="/stats">Channel Stats</a>
+            <a href="/ai">AI Title Generator</a>
+            <a href="/video_info">Video Info</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form method="post" class="card">
+            <label for="video_url">YouTube Video URL or Topic:</label><br>
+            <input type="text" name="video_url" id="video_url" required style="width: 100%; margin-top: 10px;"><br><br>
+            <button type="submit">Generate Tags</button>
+        </form>
+
+        {% if tags %}
+        <div class="card">
+            <h3>Generated Tags</h3>
+            <ul>
+                {% for tag in tags %}
+                <li>#{{ tag }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+
+</body>
+</html>
 
