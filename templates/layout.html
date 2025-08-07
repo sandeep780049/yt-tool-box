@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YT Tool Box: Free YouTube Tools to Grow Your Channel - Tags, Keywords, Thumbnails, AI Titles, Video Info & More">
+    <meta name="keywords" content="YouTube Tools, YouTube SEO, YouTube Tag Generator, Keyword Tool, Thumbnail Downloader, AI Titles, Channel Stats, Video Info Viewer">
+    <meta name="author" content="YT Tool Box">
+    <title>YT Tool Box</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title"><a href="{{ url_for('index') }}">YT Tool Box</a></div>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger">&#9776;</label>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></li>
+            <li><a href="{{ url_for('tags') }}">Tag Generator</a></li>
+            <li><a href="{{ url_for('keywords') }}">Keyword Tool</a></li>
+            <li><a href="{{ url_for('ai') }}">AI Title & Description</a></li>
+            <li><a href="{{ url_for('stats') }}">Channel Stats</a></li>
+            <li><a href="{{ url_for('videoinfo') }}">Video Info</a></li>
+            <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            <li><a href="{{ url_for('what_is_tags') }}">What is Tag</a></li>
+            <li><a href="{{ url_for('what_is_thumbnails') }}">What is Thumbnail</a></li>
+            <li><a href="{{ url_for('what_is_keyword') }}">What is Keyword</a></li>
+            <li><a href="{{ url_for('about_site') }}">About</a></li>
+        </ul>
+    </nav>
 
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 YT Tool Box — All Rights Reserved</p>
+        <p><a href="https://amzn.to/45q05Uz" target="_blank" rel="nofollow">📱 Recommended Phone for YouTubers: Samsung Galaxy - Fast, Powerful, Reliable!</a></p>
+    </footer>
+</body>
+</html>
