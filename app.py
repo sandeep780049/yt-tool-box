@@ -1,56 +1,107 @@
 from flask import Flask, render_template, request
-import random
+from pytube import YouTube
+import os
 
 app = Flask(__name__)
 
+# HOME ROUTE
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
+# THUMBNAIL DOWNLOADER
 @app.route('/thumbnail', methods=['GET', 'POST'])
 def thumbnail():
-    thumbnail_url = None
+    thumbnail_url = ''
     if request.method == 'POST':
         video_url = request.form['video_url']
-        if "v=" in video_url:
-            video_id = video_url.split("v=")[-1][:11]
-        elif "youtu.be/" in video_url:
-            video_id = video_url.split("/")[-1][:11]
-        else:
-            video_id = video_url[:11]
-        thumbnail_url = f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+        try:
+            yt = YouTube(video_url)
+            thumbnail_url = yt.thumbnail_url
+        except:
+            thumbnail_url = 'Error: Invalid YouTube URL'
     return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
 
-@app.route('/tags', methods=['GET', 'POST'])
-def tags():
-    tags_list = []
+# TAG GENERATOR
+@app.route('/tag', methods=['GET', 'POST'])
+def tag():
+    tags = ''
     if request.method == 'POST':
-        topic = request.form['topic']
-        tags_list = [f"{topic} tutorial", f"{topic} review", f"{topic} tips", f"{topic} for beginners", f"{topic} in 2025"]
-    return render_template('tags.html', tags=tags_list)
+        video_url = request.form['video_url']
+        try:
+            yt = YouTube(video_url)
+            tags = ', '.join(yt.keywords)
+        except:
+            tags = 'Error: Unable to fetch tags'
+    return render_template('tag.html', tags=tags)
 
+# KEYWORD GENERATOR
 @app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
-    keywords_list = []
+    keywords = ''
     if request.method == 'POST':
-        topic = request.form['topic']
-        keywords_list = [f"best {topic}", f"{topic} explained", f"{topic} uses", f"{topic} benefits", f"why {topic} is important"]
-    return render_template('keywords.html', keywords=keywords_list)
+        video_url = request.form['video_url']
+        try:
+            yt = YouTube(video_url)
+            keywords = ', '.join(YouTube(video_url).keywords)
+        except:
+            keywords = 'Error: Unable to fetch keywords'
+    return render_template('keywords.html', keywords=keywords)
 
-@app.route('/stats')
-def stats():
-    return render_template('stats.html')
-
+# AI TITLE & DESCRIPTION GENERATOR
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
-    title, description = '', ''
+    ai_title = ''
+    ai_description = ''
     if request.method == 'POST':
         topic = request.form['topic']
-        title = f"Top 5 Secrets About {topic} You Should Know"
-        description = f"Learn everything about {topic}, its benefits, and tips to grow your channel using smart strategies."
-    return render_template('ai.html', title=title, description=description)
+        ai_title = f"Top 10 Secrets About {topic} You Didn't Know!"
+        ai_description = f"Discover amazing facts and tips about {topic} that will help grow your channel. Don't miss out on this powerful knowledge."
+    return render_template('ai.html', ai_title=ai_title, ai_description=ai_description)
 
-# Informational pages
+# STATS VIEWER
+@app.route('/stats', methods=['GET', 'POST'])
+def stats():
+    title = ''
+    views = ''
+    channel = ''
+    if request.method == 'POST':
+        video_url = request.form['video_url']
+        try:
+            yt = YouTube(video_url)
+            title = yt.title
+            views = yt.views
+            channel = yt.author
+        except:
+            title = 'Error: Invalid URL'
+    return render_template('stats.html', title=title, views=views, channel=channel)
+
+# VIDEO INFO VIEWER
+@app.route('/videoinfo', methods=['GET', 'POST'])
+def videoinfo():
+    title = ''
+    length = ''
+    publish = ''
+    if request.method == 'POST':
+        video_url = request.form['video_url']
+        try:
+            yt = YouTube(video_url)
+            title = yt.title
+            length = yt.length
+            publish = yt.publish_date.strftime('%Y-%m-%d')
+        except:
+            title = 'Error fetching data'
+    return render_template('videoinfo.html', title=title, length=length, publish=publish)
+
+# STATIC PAGES
+@app.route('/about_site')
+def about():
+    return render_template('about_site.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 @app.route('/what-is-tags')
 def what_is_tags():
     return render_template('what-is-tags.html')
@@ -59,14 +110,9 @@ def what_is_tags():
 def what_is_thumbnails():
     return render_template('what-is-thumbnails.html')
 
-@app.route('/what-is-keywords')
+@app.route('/what-is-keyword')
 def what_is_keywords():
-    return render_template('what-is-keywords.html')
+    return render_template('what-is-keyword.html')
 
-@app.route('/about_site')
-def about_site():
-    return render_template('about_site.html')
-
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
+# RENDER DEPLOYMENT ENTRY POINT
+# No need for if __name__ == '__main__':
