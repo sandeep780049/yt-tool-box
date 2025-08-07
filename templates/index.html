@@ -1,39 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YT Tool Box</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        nav {
+            background-color: black;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 8px 12px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 48px;
+            color: red;
+            text-shadow: 2px 2px 4px #aaa;
+            margin-bottom: 0;
+        }
+
+        .welcome h2 {
+            font-size: 24px;
+            color: black;
+            margin-top: 10px;
+        }
+
+        .welcome p {
+            font-size: 16px;
+            margin-top: 10px;
+            padding: 0 20px;
+            color: #333;
+        }
+
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .tool-card {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 2px 2px 8px #ccc;
+        }
+
+        .tool-card a {
+            font-size: 18px;
+            color: #d30000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        @media (max-width: 600px) {
+            .tool-card {
+                width: 90%;
+            }
+
+            nav a {
+                font-size: 12px;
+                margin: 6px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <div class="hamburger" onclick="toggleMenu()">☰</div>
-            <div class="brand">YT Tool Box</div>
-        </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="/">Home</a></li>
-            <li><a href="/thumbnail">Thumbnail Downloader</a></li>
-            <li><a href="/stats">My Stats Viewer</a></li>
-            <li><a href="/ai-title-description">AI Title & Description</a></li>
-        </ul>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/thumbnail">Thumbnail Downloader</a>
+        <a href="/tags">Tag Generator</a>
+        <a href="/stats">Channel Stats Viewer</a>
+        <a href="/ai">AI Title Generator</a>
+        <a href="/video">Video Info Viewer</a>
+        <a href="/what-is-tag">What is Tag?</a>
+        <a href="/what-is-thumbnail">What is Thumbnail?</a>
+        <a href="/how-tags-help">Grow with Tags</a>
+        <a href="/what-is-keyword">What is Keyword?</a>
+        <a href="/about">About</a>
     </nav>
 
-    <header class="hero">
-        <h1 class="welcome">Welcome</h1>
-        <h2 class="subtitle">to YT Tool Box</h2>
-        <p class="tagline">All-in-one YouTube tools for content creators. Improve your SEO, grow faster, and save time!</p>
-    </header>
+    <div class="welcome">
+        <h1>Welcome</h1>
+        <h2>to YT Tool Box</h2>
+        <p>All-in-one YouTube tools for content creators. Use our free SEO-powered tools to grow your channel, find better tags, titles, and analyze your videos smartly.</p>
+    </div>
 
-    <main class="tools-container">
-        {% for tool in tools %}
+    <div class="tools-container">
         <div class="tool-card">
-            <h3><a href="{{ tool.link }}">{{ tool.name }}</a></h3>
-            <p>{{ tool.description }}</p>
+            <a href="/thumbnail">Thumbnail Downloader</a>
+            <p>Download any YouTube video thumbnail in high quality. Great for designing SEO-focused videos with appealing visuals.</p>
         </div>
-        {% endfor %}
-    </main>
+        <div class="tool-card">
+            <a href="/tags">Tag Generator</a>
+            <p>Generate perfect tags for your video using keywords to improve visibility and grow your reach organically.</p>
+        </div>
+        <div class="tool-card">
+            <a href="/stats">Channel Stats Viewer</a>
+            <p>Get insights into any YouTube channel – subscriber count, video views, and overall performance tracking.</p>
+        </div>
+        <div class="tool-card">
+            <a href="/ai">AI Title Generator</a>
+            <p>Create powerful and attractive video titles & descriptions that help your content stand out in search.</p>
+        </div>
+        <div class="tool-card">
+            <a href="/video">Video Info Viewer</a>
+            <p>Get detailed info of any YouTube video like upload date, views, channel, and more — just paste the link.</p>
+        </div>
+    </div>
 </body>
 </html>
