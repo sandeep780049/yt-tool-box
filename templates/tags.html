@@ -1,52 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Tag & Keyword Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %}YouTube Tag Generator{% endblock %}
 
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <h1>🏷️ Tag & Keyword Generator</h1>
-        <p>Enter a video URL or keyword to generate SEO-friendly tags.</p>
-        <nav id="nav">
-            <a href="/">Home</a>
-            <a href="/thumbnail">Thumbnail Downloader</a>
-            <a href="/tags">Tag Generator</a>
-            <a href="/stats">Channel Stats</a>
-            <a href="/ai">AI Title Generator</a>
-            <a href="/video_info">Video Info</a>
-        </nav>
-    </header>
+{% block content %}
+<div class="tool-section">
+    <h1 class="main-heading">🎯 YouTube Tags Generator</h1>
+    <p class="sub-description">Enter your video topic and get powerful, SEO-friendly tags to help your content reach the right audience.</p>
+    <form method="POST">
+        <input type="text" name="video_topic" placeholder="Enter your video topic..." required>
+        <button type="submit">Generate Tags</button>
+    </form>
 
-    <div class="container">
-        <form method="post" class="card">
-            <label for="video_url">YouTube Video URL or Topic:</label><br>
-            <input type="text" name="video_url" id="video_url" required style="width: 100%; margin-top: 10px;"><br><br>
-            <button type="submit">Generate Tags</button>
-        </form>
-
-        {% if tags %}
-        <div class="card">
-            <h3>Generated Tags</h3>
-            <ul>
-                {% for tag in tags %}
-                <li>#{{ tag }}</li>
-                {% endfor %}
-            </ul>
+    {% if tags %}
+    <div class="result-box">
+        <h2>Generated Tags:</h2>
+        <textarea id="tagOutput" readonly>{{ tags }}</textarea>
+        <div class="btn-group">
+            <button onclick="copyToClipboard('tagOutput')">📋 Copy</button>
+            <a href="/download/tags.txt" download><button>⬇️ Download</button></a>
         </div>
-        {% endif %}
     </div>
+    {% endif %}
 
-    <script>
-        function toggleMenu() {
-            var nav = document.getElementById('nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        }
-    </script>
+    <hr>
 
-</body>
-</html>
+    <div class="info-section">
+        <h2>What are YouTube Tags?</h2>
+        <p>YouTube tags help your videos get discovered by users searching relevant keywords. They improve SEO and are essential to rank higher in search results. Add relevant, trending tags to boost visibility and grow your channel organically.</p>
+        <p>🎯 Pro Tip: Always use 10–15 relevant tags based on your title, description, and content type. This increases your video's discoverability by 30%.</p>
 
+        <h2>📱 Recommended Creator Gear</h2>
+        <p>If you're starting out or upgrading, <strong>Samsung Galaxy M14 5G</strong> is an affordable, powerful phone perfect for filming YouTube content. Great camera, long battery, and budget-friendly.</p>
+        <p><a href="https://amzn.to/45q05Uz" target="_blank">📦 Check it out on Amazon »</a></p>
+    </div>
+</div>
+{% endblock %}
