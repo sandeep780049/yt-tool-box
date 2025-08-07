@@ -1,50 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="tool-container">
+    <h1 class="tool-heading">🤖 AI Title & Description Generator</h1>
+    <form method="POST">
+        <input type="text" name="topic" placeholder="Enter your video topic..." required>
+        <button type="submit">Generate</button>
+    </form>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>AI Title & Description Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+    {% if title and description %}
+        <div class="output-box">
+            <h2>🎬 Suggested Title:</h2>
+            <textarea readonly id="titleOutput">{{ title }}</textarea>
 
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <h1>🤖 AI Title & Description Generator</h1>
-        <p>Generate catchy titles and descriptions from your video topic!</p>
-        <nav id="nav">
-            <a href="/">Home</a>
-            <a href="/thumbnail">Thumbnail Downloader</a>
-            <a href="/tags">Tag Generator</a>
-            <a href="/stats">Channel Stats</a>
-            <a href="/ai">AI Title Generator</a>
-            <a href="/video_info">Video Info</a>
-        </nav>
-    </header>
+            <h2>📝 Suggested Description:</h2>
+            <textarea readonly id="descOutput">{{ description }}</textarea>
 
-    <div class="container">
-        <form method="post" class="card">
-            <label for="topic">Video Topic:</label><br>
-            <input type="text" id="topic" name="topic" required style="width: 100%; margin-top: 10px;"><br><br>
-            <button type="submit">Generate</button>
-        </form>
-
-        {% if title and description %}
-        <div class="card">
-            <h3>Generated Title:</h3>
-            <p><strong>{{ title }}</strong></p>
-            <h3>Generated Description:</h3>
-            <p>{{ description }}</p>
+            <div class="button-row">
+                <button onclick="copyToClipboard('titleOutput')">📋 Copy Title</button>
+                <button onclick="copyToClipboard('descOutput')">📋 Copy Description</button>
+                <a href="/download?type=ai" class="download-btn">⬇️ Download</a>
+            </div>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
 
-    <script>
-        function toggleMenu() {
-            var nav = document.getElementById('nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        }
-    </script>
+<div class="info-section">
+    <h2>Why Use AI for YouTube Titles & Descriptions?</h2>
+    <p>Crafting compelling titles and engaging descriptions can greatly impact your video’s performance. With our AI tool, you get catchy, SEO-friendly content tailored to your topic—instantly. Save time, boost visibility, and focus more on creating amazing content!</p>
 
-</body>
-</html>
+    <p><strong>Pro Tip:</strong> Want to shoot better videos? Try the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Creator Edition</a> — a favorite among YouTubers for its crystal-clear camera and battery life!</p>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
