@@ -1,1 +1,51 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Channel Stats Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <h1>📊 Channel Stats Viewer</h1>
+        <p>Enter a channel ID to view subscribers, views, and video count.</p>
+        <nav id="nav">
+            <a href="/">Home</a>
+            <a href="/thumbnail">Thumbnail Downloader</a>
+            <a href="/tags">Tag Generator</a>
+            <a href="/stats">Channel Stats</a>
+            <a href="/ai">AI Title Generator</a>
+            <a href="/video_info">Video Info</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <form method="post" class="card">
+            <label for="channel_id">Channel ID or Name:</label><br>
+            <input type="text" name="channel_id" id="channel_id" required style="width: 100%; margin-top: 10px;"><br><br>
+            <button type="submit">View Stats</button>
+        </form>
+
+        {% if data %}
+        <div class="card">
+            <h3>Channel Info</h3>
+            <p><strong>Name:</strong> {{ data.channel_name }}</p>
+            <p><strong>Subscribers:</strong> {{ data.subscribers }}</p>
+            <p><strong>Total Views:</strong> {{ data.views }}</p>
+            <p><strong>Videos:</strong> {{ data.videos }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById('nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+
+</body>
+</html>
