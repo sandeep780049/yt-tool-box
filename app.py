@@ -1,19 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 
-app = Flask(__name__)
-@app.route('/what-is-tag')
-def tag_info():
-    return render_template('what-is-tag.html')
-@app.route('/')
-def index():
-    tools = [
-        {"name": "Thumbnail Downloader", "link": "/thumbnail", "description": "Download YouTube video thumbnails in high quality for your SEO and branding needs."},
-        {"name": "Tag & Keyword Generator", "link": "/tags", "description": "Generate SEO-friendly tags and keywords to boost video discoverability and reach."},
-        {"name": "Channel Stats Viewer", "link": "/stats", "description": "Check your channel metrics and track your growth over time."},
-        {"name": "AI Title & Description Generator", "link": "/ai-title-description", "description": "Automatically generate attention-grabbing titles and optimized video descriptions."},
-        {"name": "Video Info Viewer", "link": "/video_info", "description": "Get detailed metadata and info of any public YouTube video instantly."}
-    ]
-    return render_template('index.html', tools=tools)
+app = Flask(name)
 
-# Add proper routes for all tools (you already have this part)
+@app.route('/') def home(): return render_template('index.html')
+
+@app.route('/thumbnail') def thumbnail(): return render_template('thumbnail.html')
+
+@app.route('/stats') def stats(): return render_template('stats.html')
+
+@app.route('/ai-title-description') def ai_title(): return render_template('ai_title.html')
+
+@app.route('/faq') def faq(): return render_template('faq.html')
+
+@app.route('/what-is-tag') def what_is_tag(): return render_template('what_is_tag.html')
+
+@app.route('/what-is-thumbnail') def what_is_thumbnail(): return render_template('what_is_thumbnail.html')
+
+@app.route('/about-site') def about_site(): return render_template('about_site.html')
 
