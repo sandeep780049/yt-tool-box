@@ -1,50 +1,39 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YT Tool Box</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <script defer src="/static/script.js"></script>
-</head><body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
     <nav class="navbar">
-        <div class="nav-brand">YT Tool Box</div>
-        <ul class="nav-links">
+        <div class="nav-left">
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="brand">YT Tool Box</div>
+        </div>
+        <ul class="nav-links" id="navLinks">
             <li><a href="/">Home</a></li>
             <li><a href="/thumbnail">Thumbnail Downloader</a></li>
             <li><a href="/stats">My Stats Viewer</a></li>
-            <li><a href="/ai-title-description">AI Title & Description Generator</a></li>
+            <li><a href="/ai-title-description">AI Title & Description</a></li>
         </ul>
-        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-    </nav><header class="hero">
-    <h1 class="welcome-title">Welcome</h1>
-    <p class="subheading">to YT Tool Box</p>
-    <p class="tagline">All-in-one YouTube tools for content creators. Improve your SEO, boost engagement, and grow your channel faster!</p>
-</header>
+    </nav>
 
-<main class="tools-grid">
-    <div class="tool-card">
-        <h2><a href="/thumbnail">Thumbnail Downloader</a></h2>
-        <p>Download high-quality thumbnails from any YouTube video in one click. Fast and simple for content creators.</p>
-    </div>
-    <div class="tool-card">
-        <h2><a href="/tags">Tag & Keyword Generator</a></h2>
-        <p>Generate SEO-friendly tags and keywords to help your videos reach the right audience and go viral.</p>
-    </div>
-    <div class="tool-card">
-        <h2><a href="/stats">Channel Stats Viewer</a></h2>
-        <p>View your YouTube channel statistics like views, subscribers, and performance data in one place.</p>
-    </div>
-    <div class="tool-card">
-        <h2><a href="/ai-title-description">AI Title & Description Generator</a></h2>
-        <p>Use AI to craft attractive titles and descriptions that improve your CTR and increase watch time.</p>
-    </div>
-    <div class="tool-card">
-        <h2><a href="/video-info">Video Info Viewer</a></h2>
-        <p>Get detailed information about any YouTube video including ID, duration, and channel name.</p>
-    </div>
-</main>
+    <header class="hero">
+        <h1 class="welcome">Welcome</h1>
+        <h2 class="subtitle">to YT Tool Box</h2>
+        <p class="tagline">All-in-one YouTube tools for content creators. Improve your SEO, grow faster, and save time!</p>
+    </header>
 
-<footer>
-    <p>&copy; 2025 YT Tool Box. All rights reserved.</p>
-</footer>
-
-</body></html>
+    <main class="tools-container">
+        {% for tool in tools %}
+        <div class="tool-card">
+            <h3><a href="{{ tool.link }}">{{ tool.name }}</a></h3>
+            <p>{{ tool.description }}</p>
+        </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
