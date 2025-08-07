@@ -1,49 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thumbnail Downloader</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download high-quality YouTube thumbnails in one click. Just paste the video URL.">
+    <title>Thumbnail Downloader - YT Tool Box</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    {% include 'navbar.html' %}
 
-    <header>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-        <h1>📸 Thumbnail Downloader</h1>
-        <p>Enter a YouTube URL or Video ID to get the thumbnail.</p>
-        <nav id="nav">
-            <a href="/">Home</a>
-            <a href="/thumbnail">Thumbnail Downloader</a>
-            <a href="/tags">Tag Generator</a>
-            <a href="/stats">Channel Stats</a>
-            <a href="/ai">AI Title Generator</a>
-            <a href="/video_info">Video Info</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <form method="post" class="card">
-            <label for="video_url">YouTube Video URL or ID:</label><br>
-            <input type="text" name="video_url" id="video_url" required style="width: 100%; margin-top: 10px;"><br><br>
-            <button type="submit">Get Thumbnail</button>
+    <main class="container">
+        <h1 class="heading">📸 Thumbnail Downloader</h1>
+        <form method="POST" class="tool-form">
+            <input type="text" name="url" placeholder="Paste YouTube video URL" required>
+            <button type="submit">Download Thumbnail</button>
         </form>
 
         {% if thumbnail_url %}
-        <div class="card">
-            <h3>Thumbnail Preview</h3>
-            <img src="{{ thumbnail_url }}" alt="Thumbnail" style="width:100%; border-radius: 8px;"><br><br>
-            <a href="{{ thumbnail_url }}" download class="btn">Download Image</a>
+        <div class="result">
+            <h2>Thumbnail Preview:</h2>
+            <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" class="thumbnail-image">
+            <div class="buttons">
+                <a href="{{ thumbnail_url }}" download class="download-btn">Download</a>
+                <button onclick="copyThumbnailURL('{{ thumbnail_url }}')" class="copy-btn">Copy URL</button>
+            </div>
         </div>
         {% endif %}
-    </div>
+    </main>
 
     <script>
-        function toggleMenu() {
-            var nav = document.getElementById('nav');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        function copyThumbnailURL(url) {
+            navigator.clipboard.writeText(url);
+            alert("Thumbnail URL copied!");
         }
     </script>
-
 </body>
 </html>
