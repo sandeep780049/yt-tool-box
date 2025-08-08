@@ -1,36 +1,18 @@
 {% extends "layout.html" %}
+{% block title %}Channel Stats Viewer{% endblock %}
 {% block content %}
-<div class="tool-container">
-    <h1 class="tool-heading">📊 YouTube Channel Stats Viewer</h1>
-    <form method="POST">
-        <input type="text" name="channel_url" placeholder="Paste your YouTube Channel URL..." required>
-        <button type="submit">Get Stats</button>
-    </form>
-
-    {% if stats %}
-        <div class="output-box">
-            <h2>📈 Channel Statistics:</h2>
-            <textarea readonly id="statsOutput">
-Channel Name: {{ stats.name }}
-Subscribers: {{ stats.subscribers }}
-Total Views: {{ stats.views }}
-Total Videos: {{ stats.videos }}
-            </textarea>
-
-            <div class="button-row">
-                <button onclick="copyToClipboard('statsOutput')">📋 Copy Stats</button>
-                <a href="/download?type=stats" class="download-btn">⬇️ Download</a>
-            </div>
-        </div>
-    {% endif %}
-</div>
-
-<div class="info-section">
-    <h2>Why Monitor Your YouTube Channel Stats?</h2>
-    <p>Keeping track of your YouTube channel’s performance is essential for growth. Regularly checking subscribers, views, and video count helps you set goals and improve strategy. Use this tool to stay motivated and informed!</p>
-
-    <p><strong>Boost Tip:</strong> Upgrade your video quality with the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Creator Edition</a> — great camera and audio for vlogging and tutorials!</p>
-</div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<h2 class="tool-heading">Channel Stats Viewer</h2>
+<form method="POST" action="/stats" class="form">
+    <input type="text" name="channel_url" placeholder="Enter Channel URL" required class="input-field">
+    <button type="submit" class="btn">Get Stats</button>
+</form>
+{% if stats %}
+    <div class="result">
+        <h3>Channel Stats:</h3>
+        <p><strong>Name:</strong> {{ stats.name }}</p>
+        <p><strong>Subscribers:</strong> {{ stats.subscribers }}</p>
+        <p><strong>Total Views:</strong> {{ stats.views }}</p>
+        <p><strong>Videos:</strong> {{ stats.videos }}</p>
+    </div>
+{% endif %}
 {% endblock %}
