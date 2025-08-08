@@ -1,19 +1,19 @@
 <nav class="navbar">
-  <div class="container">
-    <a href="/" class="logo">YT Tool Box</a>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/thumbnail">Thumbnail Downloader</a></li>
-      <li><a href="/stats">My Stats Viewer</a></li>
-      <li><a href="/ai">AI Title & Description Generator</a></li>
-      <li><a href="/tag">Tag Generator</a></li>
-      <li><a href="/keywords">Keyword Generator</a></li>
-      <li><a href="/video_info">Video Info Viewer</a></li>
-      <li><a href="/what-is-tags">What is Tag?</a></li>
-      <li><a href="/what-is-thumbnails">What is Thumbnail?</a></li>
-      <li><a href="/what-is-keywords">What is Keyword?</a></li>
-      <li><a href="/about-site">About</a></li>
-      <li><a href="/faq">FAQ</a></li>
-    </ul>
+  <div class="navbar-brand">
+    <a href="{{ url_for('index') }}">YT Tool Box</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <div class="navbar-links" id="navbarLinks">
+    <a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a>
+    <a href="{{ url_for('tags') }}">Tag Extractor</a>
+    <a href="{{ url_for('keywords') }}">Keyword Generator</a>
+    <a href="{{ url_for('stats') }}">Channel Stats Viewer</a>
+    <a href="{{ url_for('ai') }}">AI Title & Description</a>
+    <a href="{{ url_for('video_info') }}">Video Info Viewer</a>
+    <a href="{{ url_for('what_is_tag') }}">What is Tag?</a>
+    <a href="{{ url_for('what_is_thumbnail') }}">What is Thumbnail?</a>
+    <a href="{{ url_for('what_is_keyword') }}">What is Keyword?</a>
+    <a href="{{ url_for('faq') }}">FAQ</a>
+    <a href="{{ url_for('about_site') }}">About</a>
   </div>
 </nav>
