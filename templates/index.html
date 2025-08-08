@@ -1,26 +1,21 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 {% block content %}
+  <h1 class="main-heading">Welcome to <span class="highlight">YT Tool Box</span></h1>
+  <div class="tool-grid">
+    <div class="tool-card"><a href="/thumbnail"><h2>Thumbnail Downloader</h2></a><p>Download HD thumbnails of any video.</p></div>
+    <div class="tool-card"><a href="/tags"><h2>Tag Generator</h2></a><p>Generate top YouTube tags for videos.</p></div>
+    <div class="tool-card"><a href="/keywords"><h2>Keyword Generator</h2></a><p>Get keywords to boost your content.</p></div>
+    <div class="tool-card"><a href="/ai"><h2>AI Title & Description</h2></a><p>Catchy titles and SEO descriptions using AI.</p></div>
+    <div class="tool-card"><a href="/stats"><h2>Stats Viewer</h2></a><p>Check YouTube channel statistics.</p></div>
+    <div class="tool-card"><a href="/video_info"><h2>Video Info</h2></a><p>View details like title, description, date.</p></div>
+  </div>
 
-<h1 class="main-heading">Welcome to YT Tool Box</h1>
-<h3 class="sub-heading">Your All-in-One YouTube Tools Generator</h3>
-
-<div class="tool-grid">
-  <div class="tool-card"><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></div>
-  <div class="tool-card"><a href="{{ url_for('tags') }}">Tag Generator</a></div>
-  <div class="tool-card"><a href="{{ url_for('keywords') }}">Keyword Generator</a></div>
-  <div class="tool-card"><a href="{{ url_for('ai') }}">AI Title & Description</a></div>
-  <div class="tool-card"><a href="{{ url_for('stats') }}">Channel Stats Viewer</a></div>
-  <div class="tool-card"><a href="{{ url_for('video_info') }}">Video Info Viewer</a></div>
-</div>
-
-<hr>
-
-<div class="info-links">
-  <a href="{{ url_for('what_is_tag') }}">What is a Tag?</a> |
-  <a href="{{ url_for('what_is_thumbnail') }}">What is a Thumbnail?</a> |
-  <a href="{{ url_for('what_is_keyword') }}">What is a Keyword?</a> |
-  <a href="{{ url_for('faq') }}">FAQ</a> |
-  <a href="{{ url_for('about_site') }}">About This Site</a>
-</div>
-
+  <hr>
+  <div class="info-links">
+    <a href="/what-is-tag">What is Tag?</a> |
+    <a href="/what-is-thumbnail">What is Thumbnail?</a> |
+    <a href="/what-is-keyword">What is Keyword?</a> |
+    <a href="/about_site">About</a> |
+    <a href="/faq">FAQ</a>
+  </div>
 {% endblock %}
