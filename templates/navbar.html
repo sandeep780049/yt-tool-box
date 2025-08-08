@@ -1,14 +1,14 @@
+<!-- templates/navbar.html -->
 <nav class="navbar">
-  <div class="navbar-left">
-    <a href="/" class="nav-title">YT Tool Box</a>
-  </div>
-  <div class="navbar-right">
-    <a href="/">Home</a>
-    <a href="/thumbnail">Thumbnail Downloader</a>
-    <a href="/stats">My Stats Viewer</a>
-    <a href="/ai">AI Title & Description Generator</a>
-    <a href="/video-info">Video Info Viewer</a>
-    <a href="/tags">Tag Generator</a>
-    <a href="/keywords">Keyword Generator</a>
-  </div>
+  <div class="logo">YT Tool Box</div>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <ul class="nav-links" id="navMenu">
+    <li><a href="{{ url_for('home') }}">Home</a></li>
+    <li><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></li>
+    <li><a href="{{ url_for('tags') }}">Tag Generator</a></li>
+    <li><a href="{{ url_for('keywords') }}">Keyword Generator</a></li>
+    <li><a href="{{ url_for('stats') }}">My Stats Viewer</a></li>
+    <li><a href="{{ url_for('ai') }}">AI Title & Description</a></li>
+    <li><a href="{{ url_for('video_info') }}">Video Info Viewer</a></li>
+  </ul>
 </nav>
