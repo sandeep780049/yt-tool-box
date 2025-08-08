@@ -1,34 +1,26 @@
-<!-- templates/index.html -->
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
 {% block content %}
-<div class="welcome-section">
-    <h1 class="welcome-title">Welcome</h1>
-    <h2 class="welcome-subtitle">to YT Tool Box</h2>
-    <p class="seo-line">Boost your YouTube SEO, get more growth, and save time with our free tools!</p>
-</div>
+
+<h1 class="main-heading">Welcome to YT Tool Box</h1>
+<h3 class="sub-heading">Your All-in-One YouTube Tools Generator</h3>
 
 <div class="tool-grid">
-    <div class="tool-card"><a href="{{ url_for('thumbnail') }}">📸 Thumbnail Downloader</a></div>
-    <div class="tool-card"><a href="{{ url_for('tags') }}">🏷️ Tag Generator</a></div>
-    <div class="tool-card"><a href="{{ url_for('keywords') }}">🔑 Keyword Generator</a></div>
-    <div class="tool-card"><a href="{{ url_for('stats') }}">📊 Channel Stats Viewer</a></div>
-    <div class="tool-card"><a href="{{ url_for('ai') }}">🤖 AI Title & Description</a></div>
-    <div class="tool-card"><a href="{{ url_for('video_info') }}">🎬 Video Info Viewer</a></div>
+  <div class="tool-card"><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></div>
+  <div class="tool-card"><a href="{{ url_for('tags') }}">Tag Generator</a></div>
+  <div class="tool-card"><a href="{{ url_for('keywords') }}">Keyword Generator</a></div>
+  <div class="tool-card"><a href="{{ url_for('ai') }}">AI Title & Description</a></div>
+  <div class="tool-card"><a href="{{ url_for('stats') }}">Channel Stats Viewer</a></div>
+  <div class="tool-card"><a href="{{ url_for('video_info') }}">Video Info Viewer</a></div>
 </div>
 
 <hr>
 
-<div class="info-section">
-    <h3>📌 What is a Tag?</h3>
-    <p>Tags help YouTube understand your video content and show it to the right audience. Use relevant tags to improve SEO and grow your reach!</p>
-
-    <h3>🖼️ What is a Thumbnail?</h3>
-    <p>Thumbnails are the first thing viewers see. A clear, attractive thumbnail boosts your video’s click-through rate and visibility.</p>
-
-    <h3>🚀 How to Grow Your Channel?</h3>
-    <p>Use strong titles, effective tags, engaging thumbnails, and relevant keywords. Upload consistently and connect with your audience.</p>
-
-    <h3>ℹ️ About This Website</h3>
-    <p>YT Tool Box provides free tools to help YouTubers grow: from downloading thumbnails to generating AI-powered titles and tags — all in one place!</p>
+<div class="info-links">
+  <a href="{{ url_for('what_is_tag') }}">What is a Tag?</a> |
+  <a href="{{ url_for('what_is_thumbnail') }}">What is a Thumbnail?</a> |
+  <a href="{{ url_for('what_is_keyword') }}">What is a Keyword?</a> |
+  <a href="{{ url_for('faq') }}">FAQ</a> |
+  <a href="{{ url_for('about_site') }}">About This Site</a>
 </div>
+
 {% endblock %}
