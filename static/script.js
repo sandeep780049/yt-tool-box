@@ -1,25 +1,51 @@
-// COPY BUTTON FUNCTIONALITY
-function copyToClipboard(textId) {
-    const text = document.getElementById(textId).innerText;
-    navigator.clipboard.writeText(text).then(() => {
+// Hamburger Menu Toggle for Mobile View
+document.querySelector('.hamburger').addEventListener('click', function() {
+    document.querySelector('.mobile-nav').classList.toggle('active');
+});
+
+// Copy Button Functionality
+function copyToClipboard(id) {
+    var textToCopy = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(textToCopy).then(function() {
         alert("Copied to clipboard!");
+    }).catch(function(err) {
+        alert("Error copying text: " + err);
     });
 }
 
-// DOWNLOAD BUTTON FUNCTIONALITY
-function downloadContent(textId, filename = "yt-tool-output.txt") {
-    const text = document.getElementById(textId).innerText;
-    const element = document.createElement('a');
-    const file = new Blob([text], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = filename;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+// Download Button Functionality for Thumbnails
+function downloadThumbnail(url) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = "thumbnail.jpg"; // You can specify the name you want for the file here.
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
-// MOBILE MENU TOGGLE
-function toggleMenu() {
-    const menu = document.getElementById("mobileMenu");
-    menu.classList.toggle("hidden");
-}
+// Form submit for various tools (Tag generator, etc.)
+document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();  // Prevent the form from refreshing the page
+        var actionUrl = form.action;
+        var formData = new FormData(form);
+
+        fetch(actionUrl, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Handle the response and display the generated data
+                document.getElementById('result').innerHTML = data.result;
+            } else {
+                alert('There was an issue with the tool. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        });
+    });
+});
