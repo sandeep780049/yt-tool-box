@@ -1,51 +1,40 @@
-// Hamburger Menu Toggle for Mobile View
-document.querySelector('.hamburger').addEventListener('click', function() {
-    document.querySelector('.mobile-nav').classList.toggle('active');
-});
-
-// Copy Button Functionality
-function copyToClipboard(id) {
-    var textToCopy = document.getElementById(id).textContent;
-    navigator.clipboard.writeText(textToCopy).then(function() {
+// Copy to clipboard
+function copyToClipboard(elementId) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
         alert("Copied to clipboard!");
-    }).catch(function(err) {
-        alert("Error copying text: " + err);
     });
 }
 
-// Download Button Functionality for Thumbnails
-function downloadThumbnail(url) {
-    var a = document.createElement('a');
+// Download content
+function downloadContent(elementId, filename) {
+    const text = document.getElementById(elementId).innerText;
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
     a.href = url;
-    a.download = "thumbnail.jpg"; // You can specify the name you want for the file here.
-    document.body.appendChild(a);
+    a.download = filename;
     a.click();
-    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(url);
 }
 
-// Form submit for various tools (Tag generator, etc.)
-document.querySelectorAll('form').forEach(function(form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();  // Prevent the form from refreshing the page
-        var actionUrl = form.action;
-        var formData = new FormData(form);
+// Loader show/hide (if you want to use a loading spinner in future)
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "block";
+}
 
-        fetch(actionUrl, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Handle the response and display the generated data
-                document.getElementById('result').innerHTML = data.result;
-            } else {
-                alert('There was an issue with the tool. Please try again.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Something went wrong. Please try again.');
-        });
-    });
-});
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+// Scroll to section
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+    }
+}
