@@ -1,99 +1,101 @@
 from flask import Flask, render_template, request
 from pytube import YouTube
-import random
+import openai
+import os
 
 app = Flask(__name__)
 
-def generate_ai_title_description(topic):
-    return {
-        "title": f"🔥 Best Tips for {topic} YouTube Video!",
-        "description": f"Learn how to grow your channel using this amazing {topic}-based content. Don't miss these key insights for creators!"
-    }
-
-@app.route("/")
+@app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route("/thumbnail", methods=["GET", "POST"])
+@app.route('/thumbnail', methods=['GET', 'POST'])
 def thumbnail():
-    if request.method == "POST":
-        url = request.form.get("url")
-        try:
-            yt = YouTube(url)
-            return render_template("thumbnail.html", thumbnail_url=yt.thumbnail_url)
-        except:
-            return render_template("thumbnail.html", error="Invalid URL or video not found.")
-    return render_template("thumbnail.html")
+    thumbnail_url = None
+    if request.method == 'POST':
+        url = request.form['video_url']
+        yt = YouTube(url)
+        thumbnail_url = yt.thumbnail_url
+    return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
 
-@app.route("/tags", methods=["GET", "POST"])
+@app.route('/tags', methods=['GET', 'POST'])
 def tags():
-    if request.method == "POST":
-        url = request.form.get("url")
-        try:
-            yt = YouTube(url)
-            tags = yt.keywords
-            return render_template("tags.html", tags=tags)
-        except:
-            return render_template("tags.html", error="Video not found or tags not available.")
-    return render_template("tags.html")
+    tags = []
+    if request.method == 'POST':
+        url = request.form['video_url']
+        yt = YouTube(url)
+        tags = yt.keywords
+    return render_template('tags.html', tags=tags)
 
-@app.route("/keywords", methods=["GET", "POST"])
+@app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
-    if request.method == "POST":
-        url = request.form.get("url")
-        try:
-            yt = YouTube(url)
-            keywords = yt.keywords
-            return render_template("keywords.html", keywords=keywords)
-        except:
-            return render_template("keywords.html", error="Unable to fetch keywords.")
-    return render_template("keywords.html")
+    keywords = []
+    if request.method == 'POST':
+        url = request.form['video_url']
+        yt = YouTube(url)
+        keywords = yt.keywords
+    return render_template('keywords.html', keywords=keywords)
 
-@app.route("/video_info", methods=["GET", "POST"])
-def video_info():
-    if request.method == "POST":
-        url = request.form.get("url")
-        try:
-            yt = YouTube(url)
-            info = {
-                "title": yt.title,
-                "description": yt.description,
-                "views": yt.views,
-                "length": yt.length,
-                "author": yt.author
-            }
-            return render_template("video_info.html", info=info)
-        except:
-            return render_template("video_info.html", error="Failed to fetch video info.")
-    return render_template("video_info.html")
+@app.route('/stats', methods=['GET', 'POST'])
+def stats():
+    stats = {}
+    if request.method == 'POST':
+        url = request.form['video_url']
+        yt = YouTube(url)
+        stats = {
+            'title': yt.title,
+            'views': yt.views,
+            'length': yt.length,
+            'author': yt.author
+        }
+    return render_template('stats.html', stats=stats)
 
-@app.route("/ai", methods=["GET", "POST"])
+@app.route('/ai', methods=['GET', 'POST'])
 def ai():
-    if request.method == "POST":
-        topic = request.form.get("topic")
-        if topic:
-            result = generate_ai_title_description(topic)
-            return render_template("ai.html", result=result)
-    return render_template("ai.html")
+    ai_result = ''
+    if request.method == 'POST':
+        topic = request.form['video_topic']
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=f"Generate an engaging YouTube title and description for: {topic}",
+            max_tokens=100
+        )
+        ai_result = response.choices[0].text.strip()
+    return render_template('ai.html', ai_result=ai_result)
 
-@app.route("/about_site")
+@app.route('/video_info', methods=['GET', 'POST'])
+def video_info():
+    info = {}
+    if request.method == 'POST':
+        url = request.form['video_url']
+        yt = YouTube(url)
+        info = {
+            'title': yt.title,
+            'description': yt.description,
+            'length': yt.length,
+            'views': yt.views,
+            'author': yt.author,
+            'publish_date': yt.publish_date
+        }
+    return render_template('video_info.html', info=info)
+
+# Static pages
+@app.route('/what-is-tag')
+def what_is_tag():
+    return render_template('what-is-tag.html')
+
+@app.route('/what-is-thumbnail')
+def what_is_thumbnail():
+    return render_template('what-is-thumbnail.html')
+
+@app.route('/what-is-keyword')
+def what_is_keyword():
+    return render_template('what-is-keyword.html')
+
+@app.route('/about_site')
 def about_site():
-    return render_template("about_site.html")
+    return render_template('about_site.html')
 
-@app.route("/faq")
+@app.route('/faq')
 def faq():
-    return render_template("faq.html")
-
-@app.route("/what-is-tags")
-def what_is_tags():
-    return render_template("what-is-tag.html")
-
-@app.route("/what-is-thumbnails")
-def what_is_thumbnails():
-    return render_template("what-is-thumbnail.html")
-
-@app.route("/what-is-keywords")
-def what_is_keywords():
-    return render_template("what-is-keyword.html")
-
-# No if __name__ part needed for Render
+    return render_template('faq.html')
