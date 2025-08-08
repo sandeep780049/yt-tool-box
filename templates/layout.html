@@ -1,19 +1,45 @@
+<!-- templates/layout.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YT Tool Box - All-in-One YouTube Tools like tag extractor, thumbnail downloader, AI title generator, video stats viewer, and more to grow your YouTube channel fast.">
-    <meta name="keywords" content="YouTube tools, tag extractor, thumbnail downloader, keyword generator, YouTube stats, AI video titles, video info">
-    <meta name="author" content="YT Tool Box">
     <title>YT Tool Box</title>
+    <meta name="description" content="YT Tool Box - All-in-One YouTube Tools for channel growth. Generate tags, keywords, titles, download thumbnails & more!">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    {% include 'navbar.html' %}
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{{ url_for('index') }}">YT Tool Box</a>
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></li>
+            <li><a href="{{ url_for('stats') }}">Channel Stats Viewer</a></li>
+            <li><a href="{{ url_for('ai') }}">AI Title & Description</a></li>
+            <li><a href="{{ url_for('tags') }}">Tag Generator</a></li>
+            <li><a href="{{ url_for('keywords') }}">Keyword Generator</a></li>
+            <li><a href="{{ url_for('video_info') }}">Video Info</a></li>
+            <li><a href="{{ url_for('what_is_tag') }}">What is Tag?</a></li>
+            <li><a href="{{ url_for('what_is_thumbnail') }}">What is Thumbnail?</a></li>
+            <li><a href="{{ url_for('what_is_keyword') }}">What is Keyword?</a></li>
+            <li><a href="{{ url_for('about_site') }}">About Site</a></li>
+            <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+        </ul>
+    </nav>
+
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navLinks");
+            menu.classList.toggle("show");
+        }
+    </script>
 </body>
 </html>
