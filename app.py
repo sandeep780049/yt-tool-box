@@ -46,3 +46,20 @@ def keywords():
             ]
             keywords = base_keywords[:15]
     return render_template('keywords.html', keywords=keywords)
+
+@app.route('/stats', methods=['GET', 'POST'])
+def stats():
+    class DummyStats:
+        def __init__(self, channel, subscribers, views):
+            self.channel = channel
+            self.subscribers = subscribers
+            self.views = views
+
+    stats = None
+    if request.method == 'POST':
+        channel_url = request.form['channel_url']
+        # Dummy logic for now – you can later connect to YouTube API
+        if channel_url:
+            channel_name = channel_url.split("/")[-1] if "/" in channel_url else "Your Channel"
+            stats = DummyStats(channel_name, "12.3K", "1.5M")
+    return render_template('stats.html', stats=stats)
