@@ -1,14 +1,16 @@
-<!-- templates/navbar.html -->
-<nav class="navbar">
-  <div class="logo">YT Tool Box</div>
-  <button class="hamburger" onclick="toggleMenu()">☰</button>
-  <ul class="nav-links" id="navMenu">
-    <li><a href="{{ url_for('home') }}">Home</a></li>
+<nav>
+  <ul>
+    <li><a href="{{ url_for('index') }}">Home</a></li>
     <li><a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a></li>
+    <li><a href="{{ url_for('stats') }}">Stats Viewer</a></li>
+    <li><a href="{{ url_for('ai') }}">AI Title & Description</a></li>
     <li><a href="{{ url_for('tags') }}">Tag Generator</a></li>
     <li><a href="{{ url_for('keywords') }}">Keyword Generator</a></li>
-    <li><a href="{{ url_for('stats') }}">My Stats Viewer</a></li>
-    <li><a href="{{ url_for('ai') }}">AI Title & Description</a></li>
-    <li><a href="{{ url_for('video_info') }}">Video Info Viewer</a></li>
+    <li><a href="{{ url_for('video_info') }}">Video Info</a></li>
+    <li><a href="{{ url_for('what_is_tag') }}">What is Tag</a></li>
+    <li><a href="{{ url_for('what_is_thumbnail') }}">What is Thumbnail</a></li>
+    <li><a href="{{ url_for('what_is_keyword') }}">What is Keyword</a></li>
+    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+    <li><a href="{{ url_for('about_site') }}">About</a></li>
   </ul>
 </nav>
