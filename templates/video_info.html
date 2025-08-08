@@ -1,36 +1,21 @@
 {% extends 'layout.html' %}
-
 {% block content %}
-<div class="container mt-5">
-  <h1 class="text-center mb-4 text-danger">Video Info Viewer</h1>
-  <form method="POST" class="mb-4">
-    <div class="mb-3">
-      <label for="video_url" class="form-label">Enter YouTube Video URL</label>
-      <input type="text" class="form-control" id="video_url" name="video_url" placeholder="https://www.youtube.com/watch?v=..." required>
-    </div>
-    <button type="submit" class="btn btn-primary d-block mx-auto">Get Info</button>
-  </form>
+<div class="tool-section">
+    <h2 class="tool-title">🎬 Video Info Viewer</h2>
+    <form method="POST" action="{{ url_for('video_info') }}">
+        <input type="text" name="video_url" placeholder="Paste YouTube video URL" required>
+        <button type="submit">Get Info</button>
+    </form>
 
-  {% if video_info %}
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">{{ video_info.title }}</h3>
-        <p class="card-text"><strong>Channel:</strong> {{ video_info.channel }}</p>
-        <p class="card-text"><strong>Published:</strong> {{ video_info.publish_date }}</p>
-        <p class="card-text"><strong>Views:</strong> {{ video_info.views }}</p>
-        <p class="card-text"><strong>Description:</strong><br>{{ video_info.description }}</p>
-        {% if video_info.thumbnail_url %}
-        <div class="text-center my-3">
-          <img src="{{ video_info.thumbnail_url }}" alt="Video Thumbnail" class="img-fluid rounded">
-        </div>
-        <div class="text-center">
-          <a href="{{ video_info.thumbnail_url }}" download class="btn btn-success me-2">
-            <i class="bi bi-download"></i> Download Thumbnail
-          </a>
-        </div>
-        {% endif %}
-      </div>
+    {% if info %}
+    <div class="result-box">
+        <p><strong>Title:</strong> {{ info.title }}</p>
+        <p><strong>Channel:</strong> {{ info.channel }}</p>
+        <p><strong>Duration:</strong> {{ info.duration }}</p>
+        <textarea id="infoText" readonly>{{ info.title }} | {{ info.channel }} | {{ info.duration }}</textarea>
+        <br>
+        <button onclick="copyToClipboard(document.getElementById('infoText').value)" class="btn-copy">📋 Copy Info</button>
     </div>
-  {% endif %}
+    {% endif %}
 </div>
 {% endblock %}
