@@ -1,35 +1,25 @@
 {% extends "layout.html" %}
+{% block title %}AI Title & Description Generator{% endblock %}
 {% block content %}
-<div class="tool-container">
-    <h1 class="tool-heading">🤖 AI Title & Description Generator</h1>
-    <form method="POST">
-        <input type="text" name="topic" placeholder="Enter your video topic..." required>
-        <button type="submit">Generate</button>
-    </form>
-
-    {% if title and description %}
-        <div class="output-box">
-            <h2>🎬 Suggested Title:</h2>
-            <textarea readonly id="titleOutput">{{ title }}</textarea>
-
-            <h2>📝 Suggested Description:</h2>
-            <textarea readonly id="descOutput">{{ description }}</textarea>
-
-            <div class="button-row">
-                <button onclick="copyToClipboard('titleOutput')">📋 Copy Title</button>
-                <button onclick="copyToClipboard('descOutput')">📋 Copy Description</button>
-                <a href="/download?type=ai" class="download-btn">⬇️ Download</a>
-            </div>
-        </div>
-    {% endif %}
-</div>
-
-<div class="info-section">
-    <h2>Why Use AI for YouTube Titles & Descriptions?</h2>
-    <p>Crafting compelling titles and engaging descriptions can greatly impact your video’s performance. With our AI tool, you get catchy, SEO-friendly content tailored to your topic—instantly. Save time, boost visibility, and focus more on creating amazing content!</p>
-
-    <p><strong>Pro Tip:</strong> Want to shoot better videos? Try the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Creator Edition</a> — a favorite among YouTubers for its crystal-clear camera and battery life!</p>
-</div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<h2 class="tool-heading">AI Title & Description Generator</h2>
+<form method="POST" action="/ai" class="form">
+    <input type="text" name="video_topic" placeholder="Enter video topic" required class="input-field">
+    <button type="submit" class="btn">Generate</button>
+</form>
+{% if title and description %}
+    <div class="result">
+        <h3>Generated Title:</h3>
+        <p>{{ title }}</p>
+        <h3>Generated Description:</h3>
+        <p>{{ description }}</p>
+        <button onclick="copyAIContent()" class="btn">Copy</button>
+        <script>
+            function copyAIContent() {
+                let content = `Title: {{ title }}\n\nDescription: {{ description }}`;
+                navigator.clipboard.writeText(content.trim());
+                alert("Content copied!");
+            }
+        </script>
+    </div>
+{% endif %}
 {% endblock %}
