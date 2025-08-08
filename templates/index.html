@@ -1,69 +1,81 @@
 {% extends "layout.html" %}
+
+{% block title %}Home - YT Tool Box{% endblock %}
+
 {% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="display-4 text-danger" style="text-shadow: 2px 2px 4px #aaa;">Welcome</h1>
+    <h2 class="mb-5 text-dark">to YT Tool Box</h2>
 
-<h1 class="text-4xl font-bold text-red-600 text-center mb-4 shadow">Welcome</h1>
-<h2 class="text-xl text-center mb-8">Welcome to YT Tool Box</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100 border-danger">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('thumbnail') }}" class="text-danger text-decoration-none">Thumbnail Downloader</a>
+                    </h5>
+                    <p class="card-text text-muted">Download HD YouTube video thumbnails instantly by pasting the video URL. Works for any public video.</p>
+                </div>
+            </div>
+        </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/thumbnail">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">Thumbnail Downloader</h3>
-    </a>
-    <p class="text-sm mt-2">Download high-quality thumbnails directly from YouTube videos.</p>
-  </div>
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/tags">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">Tag Generator</h3>
-    </a>
-    <p class="text-sm mt-2">Generate SEO-optimized tags to help boost video reach.</p>
-  </div>
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/keywords">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">Keyword Extractor</h3>
-    </a>
-    <p class="text-sm mt-2">Extract relevant and trending keywords for your video topic.</p>
-  </div>
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/stats">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">My Channel Stats</h3>
-    </a>
-    <p class="text-sm mt-2">View your channel's public stats like views, videos, and subscribers.</p>
-  </div>
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/ai">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">AI Title & Description</h3>
-    </a>
-    <p class="text-sm mt-2">Generate catchy titles and descriptions with the help of AI.</p>
-  </div>
-  <div class="border rounded-xl p-4 shadow">
-    <a href="/video_info">
-      <h3 class="text-xl font-semibold text-blue-600 hover:underline">Video Info Viewer</h3>
-    </a>
-    <p class="text-sm mt-2">Get detailed information from any YouTube video link.</p>
-  </div>
+        <div class="col">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('tags') }}" class="text-success text-decoration-none">Tag Generator</a>
+                    </h5>
+                    <p class="card-text text-muted">Generate SEO-optimized YouTube tags that boost your visibility and reach in search results.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('keywords') }}" class="text-primary text-decoration-none">Keyword Generator</a>
+                    </h5>
+                    <p class="card-text text-muted">Find trending keywords for your niche. Helps in ranking better and reaching the right audience.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 border-info">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('ai') }}" class="text-info text-decoration-none">AI Title & Description</a>
+                    </h5>
+                    <p class="card-text text-muted">Paste your video topic and get 10 catchy AI-generated titles + video descriptions in seconds.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 border-warning">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('stats') }}" class="text-warning text-decoration-none">Channel Stats Viewer</a>
+                    </h5>
+                    <p class="card-text text-muted">Get real-time statistics for any YouTube channel. View subscribers, views, and more.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="mt-4">
+        <p>Explore more tools below:</p>
+        <a href="{{ url_for('what_is_tag') }}" class="btn btn-outline-danger m-2">What is Tag?</a>
+        <a href="{{ url_for('what_is_thumbnail') }}" class="btn btn-outline-primary m-2">What is Thumbnail?</a>
+        <a href="{{ url_for('what_is_keyword') }}" class="btn btn-outline-success m-2">What is Keyword?</a>
+        <a href="{{ url_for('about_site') }}" class="btn btn-outline-dark m-2">About Site</a>
+    </div>
+
+    <div class="mt-5">
+        <a href="https://amzn.to/45q05Uz" target="_blank" class="btn btn-danger">Recommended Phone for YouTubers</a>
+    </div>
 </div>
-
-<!-- What Is Sections Below -->
-<div class="mt-10 px-4 md:px-20">
-  <h2 class="text-2xl font-bold text-gray-800 mt-8">🔍 What is a Tag?</h2>
-  <p class="text-sm text-gray-700 mt-2">
-    Tags are keywords added to a YouTube video to help users find content through search. They help YouTube understand your video's content and category. Using relevant tags improves your SEO and increases the chances of appearing in related video sections. Tags should include topic keywords, video type, and related terms. They are crucial for better discovery and audience targeting. Effective tagging can boost your reach, especially for new creators.
-  </p>
-
-  <h2 class="text-2xl font-bold text-gray-800 mt-8">🖼️ What is a Thumbnail?</h2>
-  <p class="text-sm text-gray-700 mt-2">
-    A thumbnail is the preview image for your YouTube video. It's the first thing viewers notice and plays a key role in getting clicks. Custom thumbnails help your video stand out in search results and suggested videos. A good thumbnail should be clear, relevant, and eye-catching. Avoid too much text and use vibrant colors. YouTube recommends a resolution of 1280x720 for thumbnails. Think of it as your video’s visual pitch to the audience.
-  </p>
-
-  <h2 class="text-2xl font-bold text-gray-800 mt-8">🔑 What is a Keyword?</h2>
-  <p class="text-sm text-gray-700 mt-2">
-    Keywords are specific words or phrases that describe the content of your video. They help YouTube understand what your video is about and match it with viewers' search queries. Including strong keywords in your title, description, and tags improves visibility. Use keyword research tools to find trending topics in your niche. Good keywords increase discoverability, engagement, and SEO. They are a must for successful content marketing.
-  </p>
-
-  <h2 class="text-xl font-semibold text-center mt-12 mb-4 text-gray-900">About YT Tool Box</h2>
-  <p class="text-sm text-gray-600 text-center">
-    YT Tool Box is your all-in-one platform for growing your YouTube channel. With smart tools and AI-powered features, we help you create better content, increase reach, and save time. Whether you're a new creator or a pro, we make YouTube easy for everyone.
-  </p>
-</div>
-
 {% endblock %}
