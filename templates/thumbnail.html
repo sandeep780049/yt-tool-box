@@ -1,46 +1,24 @@
-{% extends "layout.html" %}
-{% block title %}Thumbnail Downloader - YT Tool Box{% endblock %}
+<!-- templates/thumbnail.html -->
+{% extends 'layout.html' %}
+
+{% block title %}Download Thumbnail - YT Tool Box{% endblock %}
+
 {% block content %}
+<h1 class="tool-heading">YouTube Thumbnail Downloader</h1>
+<p class="tool-description">Paste a YouTube video link to download the highest-quality thumbnail image. Simple and fast!</p>
 
-<div class="container mt-5 text-center">
-    <h1 class="display-4 text-danger mb-4 shadow-sm">Thumbnail Downloader</h1>
-    <p class="lead mb-4">Paste any YouTube video link to get its HD thumbnail instantly!</p>
-    
-    <form method="POST" action="/thumbnail">
-        <div class="form-group">
-            <input type="text" name="video_url" class="form-control form-control-lg mb-3"
-                   placeholder="Enter YouTube video URL" required>
-        </div>
-        <button type="submit" class="btn btn-danger btn-lg">
-            <i class="bi bi-image-fill"></i> Get Thumbnail
-        </button>
-    </form>
+<form action="/thumbnail" method="POST">
+    <input type="text" name="url" placeholder="Enter YouTube Video URL" required>
+    <button type="submit">Get Thumbnail</button>
+</form>
 
-    {% if thumbnail_url %}
-    <div class="mt-5">
-        <h4 class="mb-3 text-success">HD Thumbnail:</h4>
-        <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" class="img-fluid rounded shadow" style="max-width: 100%; height: auto;">
-        
-        <div class="mt-4 d-flex justify-content-center flex-wrap gap-3">
-            <a href="{{ thumbnail_url }}" class="btn btn-success" download>
-                <i class="bi bi-download"></i> Download
-            </a>
-            <button class="btn btn-primary" onclick="copyThumbnailURL('{{ thumbnail_url }}')">
-                <i class="bi bi-clipboard"></i> Copy URL
-            </button>
-        </div>
-    </div>
-    {% endif %}
+{% if thumbnail_url %}
+<div class="result-container">
+    <h2>Thumbnail Preview</h2>
+    <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" width="100%">
+    <br><br>
+    <a href="{{ thumbnail_url }}" download class="download-button">Download Thumbnail</a>
 </div>
-
-<script>
-function copyThumbnailURL(url) {
-    navigator.clipboard.writeText(url).then(function() {
-        alert("Thumbnail URL copied to clipboard!");
-    }, function(err) {
-        alert("Failed to copy: ", err);
-    });
-}
-</script>
+{% endif %}
 
 {% endblock %}
