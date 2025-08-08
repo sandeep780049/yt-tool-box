@@ -1,112 +1,109 @@
 from flask import Flask, render_template, request
 from pytube import YouTube
+import random
 
 app = Flask(__name__)
+app.secret_key = "your_secret_key_here"  # Required to fix 'Bad Request'
 
-# Home
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-# Thumbnail Downloader
 @app.route('/thumbnail', methods=['GET', 'POST'])
 def thumbnail():
+    thumbnail_url = None
     if request.method == 'POST':
-        video_url = request.form['url']
-        try:
-            yt = YouTube(video_url)
-            thumb_url = yt.thumbnail_url
-            return render_template('thumbnail.html', thumbnail_url=thumb_url)
-        except Exception as e:
-            return render_template('thumbnail.html', error=str(e))
-    return render_template('thumbnail.html')
+        url = request.form.get('video_url')
+        if url:
+            try:
+                yt = YouTube(url)
+                thumbnail_url = yt.thumbnail_url
+            except:
+                thumbnail_url = "Error retrieving thumbnail."
+    return render_template("thumbnail.html", thumbnail_url=thumbnail_url)
 
-# Tags & Keyword Generator
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
+    tags = []
     if request.method == 'POST':
-        video_url = request.form['url']
-        try:
-            yt = YouTube(video_url)
-            tags = yt.keywords
-            return render_template('tags.html', tags=tags)
-        except Exception as e:
-            return render_template('tags.html', error=str(e))
-    return render_template('tags.html')
+        url = request.form.get('video_url')
+        if url:
+            try:
+                yt = YouTube(url)
+                tags = yt.keywords
+            except:
+                tags = ["Error retrieving tags."]
+    return render_template("tags.html", tags=tags)
 
 @app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
+    keywords = []
     if request.method == 'POST':
-        video_url = request.form['url']
-        try:
-            yt = YouTube(video_url)
-            keywords = yt.keywords
-            return render_template('keywords.html', keywords=keywords)
-        except Exception as e:
-            return render_template('keywords.html', error=str(e))
-    return render_template('keywords.html')
+        url = request.form.get('video_url')
+        if url:
+            try:
+                yt = YouTube(url)
+                keywords = yt.keywords
+            except:
+                keywords = ["No keywords found."]
+    return render_template("keywords.html", keywords=keywords)
 
-# AI Title & Description Generator (simple logic)
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
+    titles = []
     if request.method == 'POST':
-        topic = request.form['topic']
-        if topic.strip() == '':
-            return render_template('ai.html', error='Please enter a topic.')
-        title = f"Top 5 Tips About {topic.title()}"
-        description = f"Learn everything you need to know about {topic} in this video. Don't forget to like and subscribe!"
-        return render_template('ai.html', title=title, description=description)
-    return render_template('ai.html')
+        topic = request.form.get('topic')
+        if topic:
+            titles = [f"{topic} - Top Secrets {i}" for i in range(1, 11)]
+    return render_template("ai.html", titles=titles)
 
-# Channel Stats (simplified using Pytube)
 @app.route('/stats', methods=['GET', 'POST'])
 def stats():
+    stats = {}
     if request.method == 'POST':
-        video_url = request.form['url']
+        url = request.form.get('video_url')
         try:
-            yt = YouTube(video_url)
-            views = yt.views
-            length = yt.length
-            author = yt.author
-            publish_date = yt.publish_date.strftime("%Y-%m-%d")
-            return render_template('stats.html', views=views, length=length, author=author, publish_date=publish_date)
-        except Exception as e:
-            return render_template('stats.html', error=str(e))
-    return render_template('stats.html')
+            yt = YouTube(url)
+            stats = {
+                "title": yt.title,
+                "views": yt.views,
+                "length": yt.length,
+                "author": yt.author
+            }
+        except:
+            stats = {"error": "Failed to fetch video stats."}
+    return render_template("stats.html", stats=stats)
 
-# Video Info Viewer
 @app.route('/video_info', methods=['GET', 'POST'])
 def video_info():
+    info = {}
     if request.method == 'POST':
-        video_url = request.form['url']
+        url = request.form.get('video_url')
         try:
-            yt = YouTube(video_url)
-            title = yt.title
-            desc = yt.description
-            length = yt.length
-            author = yt.author
-            return render_template('video_info.html', title=title, description=desc, length=length, author=author)
-        except Exception as e:
-            return render_template('video_info.html', error=str(e))
-    return render_template('video_info.html')
+            yt = YouTube(url)
+            info = {
+                "title": yt.title,
+                "author": yt.author,
+                "publish_date": yt.publish_date,
+                "description": yt.description,
+                "views": yt.views,
+                "length": yt.length
+            }
+        except:
+            info = {"error": "Could not retrieve video info."}
+    return render_template("video_info.html", info=info)
 
-# Informational Pages
-@app.route('/what-is-tag')
-def what_is_tag():
-    return render_template('what-is-tag.html')
+@app.route('/whatis')
+def whatis():
+    return render_template("whatis.html")
 
-@app.route('/what-is-thumbnail')
-def what_is_thumbnail():
-    return render_template('what-is-thumbnail.html')
-
-@app.route('/what-is-keyword')
-def what_is_keyword():
-    return render_template('what-is-keyword.html')
-
-@app.route('/about_site')
-def about_site():
-    return render_template('about_site.html')
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 @app.route('/faq')
 def faq():
-    return render_template('faq.html')
+    return render_template("faq.html")
+
+if __name__ == '__main__':
+    app.run(debug=True)
