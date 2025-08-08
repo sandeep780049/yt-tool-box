@@ -1,81 +1,17 @@
+<!-- templates/index.html -->
 {% extends "layout.html" %}
-
-{% block title %}Home - YT Tool Box{% endblock %}
-
 {% block content %}
-<div class="container mt-5 text-center">
-    <h1 class="display-4 text-danger" style="text-shadow: 2px 2px 4px #aaa;">Welcome</h1>
-    <h2 class="mb-5 text-dark">to YT Tool Box</h2>
+<div class="welcome-box">
+    <h1 class="welcome-heading">📺 Welcome to <span class="highlight">YT Tool Box</span></h1>
+    <p class="subheading">Your One-Stop Solution for All YouTube Tools</p>
+</div>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-            <div class="card h-100 border-danger">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('thumbnail') }}" class="text-danger text-decoration-none">Thumbnail Downloader</a>
-                    </h5>
-                    <p class="card-text text-muted">Download HD YouTube video thumbnails instantly by pasting the video URL. Works for any public video.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card h-100 border-success">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('tags') }}" class="text-success text-decoration-none">Tag Generator</a>
-                    </h5>
-                    <p class="card-text text-muted">Generate SEO-optimized YouTube tags that boost your visibility and reach in search results.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card h-100 border-primary">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('keywords') }}" class="text-primary text-decoration-none">Keyword Generator</a>
-                    </h5>
-                    <p class="card-text text-muted">Find trending keywords for your niche. Helps in ranking better and reaching the right audience.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card h-100 border-info">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('ai') }}" class="text-info text-decoration-none">AI Title & Description</a>
-                    </h5>
-                    <p class="card-text text-muted">Paste your video topic and get 10 catchy AI-generated titles + video descriptions in seconds.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card h-100 border-warning">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ url_for('stats') }}" class="text-warning text-decoration-none">Channel Stats Viewer</a>
-                    </h5>
-                    <p class="card-text text-muted">Get real-time statistics for any YouTube channel. View subscribers, views, and more.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr class="my-5">
-
-    <div class="mt-4">
-        <p>Explore more tools below:</p>
-        <a href="{{ url_for('what_is_tag') }}" class="btn btn-outline-danger m-2">What is Tag?</a>
-        <a href="{{ url_for('what_is_thumbnail') }}" class="btn btn-outline-primary m-2">What is Thumbnail?</a>
-        <a href="{{ url_for('what_is_keyword') }}" class="btn btn-outline-success m-2">What is Keyword?</a>
-        <a href="{{ url_for('about_site') }}" class="btn btn-outline-dark m-2">About Site</a>
-    </div>
-
-    <div class="mt-5">
-        <a href="https://amzn.to/45q05Uz" target="_blank" class="btn btn-danger">Recommended Phone for YouTubers</a>
-    </div>
+<div class="tools-container">
+    <div class="tool-card"><a href="/thumbnail">Thumbnail Downloader</a><p>Download video thumbnails instantly.</p></div>
+    <div class="tool-card"><a href="/tags">Tag Generator</a><p>Generate useful tags from any video.</p></div>
+    <div class="tool-card"><a href="/keywords">Keyword Generator</a><p>Extract video SEO keywords.</p></div>
+    <div class="tool-card"><a href="/ai">AI Title & Description</a><p>Get smart video titles and descriptions.</p></div>
+    <div class="tool-card"><a href="/stats">My Stats Viewer</a><p>View stats like views, duration, and channel.</p></div>
+    <div class="tool-card"><a href="/video_info">Video Info</a><p>Quick info on any YouTube video.</p></div>
 </div>
 {% endblock %}
