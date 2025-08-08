@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-import requests
 from pytube import YouTube
+import random
 
 app = Flask(__name__)
 
@@ -12,87 +12,84 @@ def index():
 def thumbnail():
     thumbnail_url = None
     if request.method == 'POST':
-        video_url = request.form['video_url']
+        url = request.form['url']
         try:
-            yt = YouTube(video_url)
+            yt = YouTube(url)
             thumbnail_url = yt.thumbnail_url
-        except Exception as e:
-            thumbnail_url = f"Error: {str(e)}"
+        except:
+            thumbnail_url = None
     return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
 
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
-    tags = []
+    video_tags = []
     if request.method == 'POST':
-        video_url = request.form['video_url']
+        url = request.form['url']
         try:
-            yt = YouTube(video_url)
-            tags = yt.keywords
-        except Exception as e:
-            tags = [f"Error: {str(e)}"]
-    return render_template('tags.html', tags=tags)
+            yt = YouTube(url)
+            video_tags = yt.keywords
+        except:
+            video_tags = []
+    return render_template('tags.html', video_tags=video_tags)
 
 @app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
-    keywords = []
+    video_keywords = []
     if request.method == 'POST':
-        topic = request.form['topic']
-        # Simple mock keyword generator
-        keywords = [f"{topic} tutorial", f"{topic} in 2025", f"{topic} for beginners", f"{topic} tricks", f"{topic} explained"]
-    return render_template('keywords.html', keywords=keywords)
+        url = request.form['url']
+        try:
+            yt = YouTube(url)
+            video_keywords = yt.keywords
+        except:
+            video_keywords = []
+    return render_template('keywords.html', video_keywords=video_keywords)
 
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
-    title = ''
-    description = ''
+    generated_title = ""
+    generated_description = ""
     if request.method == 'POST':
         topic = request.form['topic']
-        title = f"Top 5 Tips About {topic} You Need To Know!"
-        description = f"In this video, we dive deep into {topic}, revealing tips and strategies to help you grow your YouTube channel."
-    return render_template('ai.html', title=title, description=description)
+        generated_title = f"🔥 Must Watch: {topic} Explained in 5 Minutes!"
+        generated_description = f"This video dives deep into the topic: {topic}. Learn interesting insights and useful tips. Don’t forget to like and subscribe!"
+    return render_template('ai.html', generated_title=generated_title, generated_description=generated_description)
 
 @app.route('/stats', methods=['GET', 'POST'])
 def stats():
-    channel_name = ''
-    stats_data = {}
+    video_stats = {}
     if request.method == 'POST':
-        channel_name = request.form['channel_name']
-        # Mock data
-        stats_data = {
-            'Subscribers': '1.2M',
-            'Total Views': '55M',
-            'Videos': '240',
-            'Country': 'India'
-        }
-    return render_template('stats.html', stats_data=stats_data, channel_name=channel_name)
+        url = request.form['url']
+        try:
+            yt = YouTube(url)
+            video_stats = {
+                "title": yt.title,
+                "author": yt.author,
+                "views": yt.views,
+                "length": yt.length,
+                "publish_date": yt.publish_date.strftime("%Y-%m-%d"),
+                "description": yt.description[:300] + "..." if yt.description else ""
+            }
+        except:
+            video_stats = {}
+    return render_template('stats.html', video_stats=video_stats)
 
 @app.route('/video_info', methods=['GET', 'POST'])
 def video_info():
-    video_data = {}
+    info = {}
     if request.method == 'POST':
-        video_url = request.form['video_url']
+        url = request.form['url']
         try:
-            yt = YouTube(video_url)
-            video_data = {
-                'title': yt.title,
-                'author': yt.author,
-                'length': yt.length,
-                'views': yt.views,
-                'publish_date': yt.publish_date,
-                'description': yt.description[:500] + '...'
+            yt = YouTube(url)
+            info = {
+                "title": yt.title,
+                "channel": yt.author,
+                "length": yt.length,
+                "views": yt.views,
+                "description": yt.description[:300] + "..."
             }
-        except Exception as e:
-            video_data = {'error': str(e)}
-    return render_template('video_info.html', video_data=video_data)
-
-# Static pages
-@app.route('/about_site')
-def about_site():
-    return render_template('about_site.html')
-
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
+        except:
+            info = {}
+    return render_template('video_info.html', info=info)
 
 @app.route('/what-is-tag')
 def what_is_tag():
@@ -106,5 +103,14 @@ def what_is_thumbnail():
 def what_is_keyword():
     return render_template('what-is-keyword.html')
 
+@app.route('/about_site')
+def about_site():
+    return render_template('about_site.html')
 
-# No __main__ block as per Render requirement
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+if __name__ != "__main__":
+    # Render-compatible: no app.run()
+    pass
