@@ -1,54 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Learn what YouTube tags are, how to use them effectively for SEO, and how they can help grow your channel visibility.">
-  <meta name="keywords" content="YouTube tags, SEO, grow channel, video SEO, YouTube growth, tag generator, best YouTube tags, channel growth tips">
-  <meta name="author" content="YT Tool Box">
-  <title>What is a Tag? | YouTube SEO Tips – YT Tool Box</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-  {% include 'navbar.html' %}
-
-  <div class="content">
-    <h1 style="text-align:center; color:#e63946; font-size:2.5em;">What is a YouTube Tag?</h1>
-    <p style="text-align:center; max-width:800px; margin:auto; font-size:1.1em;">
-      YouTube tags are keywords you add to your video to help the YouTube algorithm understand your content better.
-      They increase your chances of appearing in search results, improve video discoverability, and help target the right audience.
-      Using the right tags is a powerful SEO trick to grow your channel fast!
+{% extends "layout.html" %}
+{% block content %}
+<div class="tool-container">
+    <h1 class="tool-heading">What Are YouTube Tags?</h1>
+    <p class="tool-description">
+        YouTube tags are keywords added to your video that help the algorithm understand your content. They improve your video’s discoverability by matching it with user search queries. Effective tagging boosts SEO and increases your reach. Tags like “how to”, “tutorial”, or niche-related terms help rank better. Use relevant, high-volume keywords to get noticed. Never spam unrelated tags. Let your tags reflect your content authentically.
     </p>
-
-    <br><br>
-    <h2 style="text-align:center; color:#1d3557;">How to Use Tags for SEO?</h2>
-    <ul style="max-width: 800px; margin:auto; font-size:1em; line-height:1.7;">
-      <li>Use specific, relevant keywords related to your video content.</li>
-      <li>Include both broad and long-tail keywords (like "how to edit videos").</li>
-      <li>Use your brand or channel name as a tag.</li>
-      <li>Avoid misleading or irrelevant tags — they hurt your SEO.</li>
-    </ul>
-
-    <br>
-    <h2 style="text-align:center; color:#1d3557;">Boost Your Channel with the Right Tools</h2>
-    <p style="text-align:center; max-width:800px; margin:auto; font-size:1.1em;">
-      Our <strong>Tag Generator</strong> helps you discover the most effective tags for your videos. Use it to attract more views, rank higher, and grow faster on YouTube.
-    </p>
-
-    <div style="text-align:center; margin-top:30px;">
-      <a href="{{ url_for('tags') }}" style="background-color:#e63946; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Generate Tags Now</a>
-    </div>
-
-    <br><hr style="max-width:500px;"><br>
-
-    <h2 style="text-align:center; color:#1d3557;">Recommended Tool: Samsung Galaxy for Creators</h2>
-    <p style="text-align:center; max-width:800px; margin:auto; font-size:1.1em;">
-      Looking for a powerful phone to shoot and edit your YouTube videos? We recommend the <strong>Samsung Galaxy M14</strong> — fast performance, long battery life, and stunning camera quality — perfect for YouTubers on a budget.
-      <br><br>
-      <a href="https://amzn.to/45q05Uz" target="_blank" style="color:#e63946; font-weight:bold;">👉 Buy on Amazon (Affiliate Link)</a>
-    </p>
-  </div>
-
-  {% include 'footer.html' %}
-</body>
-</html>
+</div>
+{% endblock %}
