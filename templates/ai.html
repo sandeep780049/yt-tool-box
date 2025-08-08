@@ -1,58 +1,37 @@
-{% extends "layout.html" %}
+<!-- templates/ai.html -->
+{% extends 'layout.html' %}
+
+{% block title %}AI Title & Description Generator - YT Tool Box{% endblock %}
 
 {% block content %}
-<div class="container mt-5 text-center">
-    <h1 class="display-4 text-danger mb-2">AI Title & Description Generator</h1>
-    <p class="lead mb-4">Enter your video topic and get catchy titles & descriptions for your YouTube videos to boost your SEO and engagement!</p>
+<h1 class="tool-heading">AI Title & Description Generator</h1>
+<p class="tool-description">Enter your video topic and get catchy, optimized titles and descriptions to boost engagement and SEO.</p>
 
-    <form method="POST" class="mb-4">
-        <input type="text" name="topic" placeholder="Enter your video topic" class="form-control mb-3" required>
-        <button type="submit" class="btn btn-danger">Generate</button>
-    </form>
+<form action="/ai" method="POST">
+    <input type="text" name="topic" placeholder="Enter your video topic" required>
+    <button type="submit">Generate</button>
+</form>
 
-    {% if titles %}
-    <div class="card p-4 shadow-sm mb-4">
-        <h3 class="mb-3 text-primary">🎯 Catchy Video Titles</h3>
-        <ul class="list-group text-start">
-            {% for title in titles %}
-                <li class="list-group-item">{{ title }}</li>
-            {% endfor %}
-        </ul>
-        <div class="text-center mt-3">
-            <button class="btn btn-success me-2" onclick="copyToClipboard('titlesList')">📋 Copy Titles</button>
-            <a class="btn btn-info" href="/download/titles.txt" download>⬇️ Download Titles</a>
-        </div>
-        <div id="titlesList" style="display: none;">
-            {{ titles | join('\n') }}
-        </div>
-    </div>
-    {% endif %}
+{% if title and description %}
+<div class="result-container">
+    <h2>Generated Title:</h2>
+    <p>{{ title }}</p>
+    <button class="copy-btn" onclick="copyText('{{ title }}')">Copy Title</button>
 
-    {% if descriptions %}
-    <div class="card p-4 shadow-sm">
-        <h3 class="mb-3 text-primary">📝 Suggested Descriptions</h3>
-        <ul class="list-group text-start">
-            {% for desc in descriptions %}
-                <li class="list-group-item">{{ desc }}</li>
-            {% endfor %}
-        </ul>
-        <div class="text-center mt-3">
-            <button class="btn btn-success me-2" onclick="copyToClipboard('descList')">📋 Copy Descriptions</button>
-            <a class="btn btn-info" href="/download/descriptions.txt" download>⬇️ Download Descriptions</a>
-        </div>
-        <div id="descList" style="display: none;">
-            {{ descriptions | join('\n') }}
-        </div>
-    </div>
-    {% endif %}
+    <h2>Generated Description:</h2>
+    <p>{{ description }}</p>
+    <button class="copy-btn" onclick="copyText(`{{ description }}`)">Copy Description</button>
 </div>
+{% endif %}
 
 <script>
-function copyToClipboard(id) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(function () {
-        alert("Copied!");
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        alert('Copied to clipboard!');
+    }, function(err) {
+        alert('Failed to copy: ', err);
     });
 }
 </script>
+
 {% endblock %}
