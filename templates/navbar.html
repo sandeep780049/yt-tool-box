@@ -1,19 +1,84 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <a href="{{ url_for('index') }}">YT Tool Box</a>
+    <a href="{{ url_for('home') }}">YT Tool Box</a>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
   </div>
-  <button class="hamburger" onclick="toggleMenu()">☰</button>
-  <div class="navbar-links" id="navbarLinks">
+  <div class="navbar-menu" id="menu">
+    <a href="{{ url_for('home') }}">Home</a>
     <a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a>
-    <a href="{{ url_for('tags') }}">Tag Extractor</a>
+    <a href="{{ url_for('tags') }}">Tag Generator</a>
     <a href="{{ url_for('keywords') }}">Keyword Generator</a>
-    <a href="{{ url_for('stats') }}">Channel Stats Viewer</a>
-    <a href="{{ url_for('ai') }}">AI Title & Description</a>
+    <a href="{{ url_for('stats') }}">My Stats Viewer</a>
+    <a href="{{ url_for('ai') }}">AI Title & Description Generator</a>
     <a href="{{ url_for('video_info') }}">Video Info Viewer</a>
     <a href="{{ url_for('what_is_tag') }}">What is Tag?</a>
     <a href="{{ url_for('what_is_thumbnail') }}">What is Thumbnail?</a>
     <a href="{{ url_for('what_is_keyword') }}">What is Keyword?</a>
+    <a href="{{ url_for('about') }}">About</a>
     <a href="{{ url_for('faq') }}">FAQ</a>
-    <a href="{{ url_for('about_site') }}">About</a>
   </div>
 </nav>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+
+<style>
+  .navbar {
+    background-color: #f44336;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+
+  .navbar-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+    display: block;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+  }
+
+  @media (min-width: 768px) {
+    .navbar {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-menu {
+      display: flex !important;
+      flex-direction: row;
+    }
+
+    .navbar a {
+      margin: 0 10px;
+    }
+
+    .hamburger {
+      display: none;
+    }
+  }
+</style>
