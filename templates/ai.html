@@ -1,37 +1,22 @@
-<!-- templates/ai.html -->
 {% extends 'layout.html' %}
-
-{% block title %}AI Title & Description Generator - YT Tool Box{% endblock %}
-
 {% block content %}
-<h1 class="tool-heading">AI Title & Description Generator</h1>
-<p class="tool-description">Enter your video topic and get catchy, optimized titles and descriptions to boost engagement and SEO.</p>
+<div class="tool-section">
+    <h2 class="tool-title">🤖 AI Title & Description Generator</h2>
+    <form method="POST" action="{{ url_for('ai') }}">
+        <input type="text" name="video_topic" placeholder="Enter your video topic" required>
+        <button type="submit">Generate</button>
+    </form>
 
-<form action="/ai" method="POST">
-    <input type="text" name="topic" placeholder="Enter your video topic" required>
-    <button type="submit">Generate</button>
-</form>
+    {% if title and description %}
+    <div class="result-box">
+        <h3>Suggested Title:</h3>
+        <textarea id="titleText" readonly>{{ title }}</textarea>
+        <button onclick="copyToClipboard(document.getElementById('titleText').value)" class="btn-copy">📋 Copy Title</button>
 
-{% if title and description %}
-<div class="result-container">
-    <h2>Generated Title:</h2>
-    <p>{{ title }}</p>
-    <button class="copy-btn" onclick="copyText('{{ title }}')">Copy Title</button>
-
-    <h2>Generated Description:</h2>
-    <p>{{ description }}</p>
-    <button class="copy-btn" onclick="copyText(`{{ description }}`)">Copy Description</button>
+        <h3>Suggested Description:</h3>
+        <textarea id="descText" readonly>{{ description }}</textarea>
+        <button onclick="copyToClipboard(document.getElementById('descText').value)" class="btn-copy">📋 Copy Description</button>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
-
-<script>
-function copyText(text) {
-    navigator.clipboard.writeText(text).then(function() {
-        alert('Copied to clipboard!');
-    }, function(err) {
-        alert('Failed to copy: ', err);
-    });
-}
-</script>
-
 {% endblock %}
