@@ -1,52 +1,21 @@
-{% extends "layout.html" %}
-{% block title %}Channel Stats Viewer - YT Tool Box{% endblock %}
-
+{% extends 'layout.html' %}
 {% block content %}
-<div class="tool-container">
-    <h1 class="tool-heading">
-        📊 Channel Stats Viewer
-    </h1>
-    <p class="tool-description">
-        Easily view essential YouTube channel statistics like subscriber count, total views, and video uploads. Just enter the channel ID or username below and get a quick overview. This helps you track performance and growth trends over time.
-    </p>
-
-    <form method="POST" class="tool-form">
-        <input type="text" name="channel_input" placeholder="Enter YouTube Channel ID or Username" required class="tool-input">
-        <button type="submit" class="tool-button">View Stats</button>
+<div class="tool-section">
+    <h2 class="tool-title">📊 Channel Stats Viewer</h2>
+    <form method="POST" action="{{ url_for('stats') }}">
+        <input type="text" name="channel_url" placeholder="Paste YouTube Channel URL" required>
+        <button type="submit">Get Stats</button>
     </form>
 
     {% if stats %}
     <div class="result-box">
-        <h2>📈 Channel Statistics</h2>
-        <ul>
-            <li><strong>Title:</strong> {{ stats.title }}</li>
-            <li><strong>Subscribers:</strong> {{ stats.subscribers }}</li>
-            <li><strong>Total Views:</strong> {{ stats.views }}</li>
-            <li><strong>Total Videos:</strong> {{ stats.video_count }}</li>
-            <li><strong>Channel URL:</strong> <a href="{{ stats.url }}" target="_blank">{{ stats.url }}</a></li>
-        </ul>
-        
-        <div class="button-row">
-            <button onclick="copyStats()" class="copy-btn">📋 Copy Stats</button>
-            <button onclick="downloadStats()" class="download-btn">⬇️ Download Stats</button>
-        </div>
+        <p><strong>Channel:</strong> {{ stats.channel }}</p>
+        <p><strong>Subscribers:</strong> {{ stats.subscribers }}</p>
+        <p><strong>Total Views:</strong> {{ stats.views }}</p>
+        <textarea id="statsText" readonly>{{ stats.channel }} | {{ stats.subscribers }} Subscribers | {{ stats.views }} Views</textarea>
+        <br>
+        <button onclick="copyToClipboard(document.getElementById('statsText').value)" class="btn-copy">📋 Copy Stats</button>
     </div>
     {% endif %}
 </div>
-
-<script>
-    function copyStats() {
-        let text = `Channel: {{ stats.title }}\nSubscribers: {{ stats.subscribers }}\nViews: {{ stats.views }}\nVideos: {{ stats.video_count }}\nURL: {{ stats.url }}`;
-        navigator.clipboard.writeText(text).then(() => alert("Stats copied!"));
-    }
-
-    function downloadStats() {
-        const content = `Channel: {{ stats.title }}\nSubscribers: {{ stats.subscribers }}\nViews: {{ stats.views }}\nVideos: {{ stats.video_count }}\nURL: {{ stats.url }}`;
-        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "channel_stats.txt";
-        link.click();
-    }
-</script>
 {% endblock %}
