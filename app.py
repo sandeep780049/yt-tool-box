@@ -32,3 +32,17 @@ def tags():
                 "Likes", "Engagement", "Watch Time", "Niche", "Editing", "Monetize"
             ]
     return render_template('tags.html', tags=tags_list)
+@app.route('/keywords', methods=['GET', 'POST'])
+def keywords():
+    keywords = []
+    if request.method == 'POST':
+        topic = request.form['topic'].strip()
+        if topic:
+            base_keywords = [
+                f"{topic} tips", f"{topic} tutorial", f"{topic} guide", f"{topic} SEO",
+                f"{topic} 2025", f"best {topic}", f"{topic} strategy", f"{topic} explained",
+                f"{topic} ideas", f"grow with {topic}", f"{topic} content", f"{topic} hacks",
+                f"{topic} marketing", f"{topic} tools", f"{topic} for beginners"
+            ]
+            keywords = base_keywords[:15]
+    return render_template('keywords.html', keywords=keywords)
