@@ -1,77 +1,100 @@
 from flask import Flask, render_template, request
+from pytube import YouTube
 
 app = Flask(__name__)
 
-@app.route('/')
+# Home
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/thumbnail', methods=['GET', 'POST'])
+# Thumbnail Downloader
+@app.route("/thumbnail", methods=["GET", "POST"])
 def thumbnail():
-    thumbnail_url = ""
-    if request.method == 'POST':
-        video_url = request.form['video_url']
-        video_id = video_url.split("v=")[-1].split("&")[0]
-        thumbnail_url = f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
-    return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
+    thumbnail_url = None
+    if request.method == "POST":
+        video_url = request.form["video_url"]
+        yt = YouTube(video_url)
+        thumbnail_url = yt.thumbnail_url
+    return render_template("thumbnail.html", thumbnail_url=thumbnail_url)
 
-@app.route('/tags', methods=['GET', 'POST'])
+# Tag Generator
+@app.route("/tags", methods=["GET", "POST"])
 def tags():
     tags = []
-    if request.method == 'POST':
-        video_title = request.form['video_title']
-        keywords = video_title.lower().split()
-        tags = list(set(keywords))
-    return render_template('tags.html', tags=tags)
+    if request.method == "POST":
+        video_url = request.form["video_url"]
+        yt = YouTube(video_url)
+        tags = yt.keywords
+    return render_template("tags.html", tags=tags)
 
-@app.route('/keywords', methods=['GET', 'POST'])
+# Keyword Generator
+@app.route("/keywords", methods=["GET", "POST"])
 def keywords():
     keywords = []
-    if request.method == 'POST':
-        topic = request.form['topic']
-        keywords = [f"{topic} tutorial", f"{topic} 2025", f"learn {topic} fast", f"best {topic} tricks"]
-    return render_template('keywords.html', keywords=keywords)
+    if request.method == "POST":
+        topic = request.form["topic"]
+        keywords = [f"{topic} tutorial", f"{topic} explained", f"learn {topic} fast"]
+    return render_template("keywords.html", keywords=keywords)
 
-@app.route('/ai', methods=['GET', 'POST'])
+# Stats Viewer
+@app.route("/stats", methods=["GET", "POST"])
+def stats():
+    stats = {}
+    if request.method == "POST":
+        channel_url = request.form["channel_url"]
+        stats = {
+            "name": "Test Channel",
+            "subs": "1M",
+            "views": "100M",
+            "videos": "250"
+        }
+    return render_template("stats.html", stats=stats)
+
+# AI Title & Description Generator
+@app.route("/ai", methods=["GET", "POST"])
 def ai():
     title = ""
     description = ""
-    if request.method == 'POST':
-        topic = request.form['topic']
-        title = f"Top 10 Tips About {topic} You Should Know!"
-        description = f"This video dives deep into {topic}, revealing essential tips, hacks, and insights to help you master it like a pro!"
-    return render_template('ai.html', title=title, description=description)
+    if request.method == "POST":
+        topic = request.form["topic"]
+        title = f"🔥 Must Watch: {topic} Explained in 5 Minutes!"
+        description = f"This video covers everything you need to know about {topic}. Boost your YouTube SEO and grow your channel with powerful content!"
+    return render_template("ai.html", title=title, description=description)
 
-@app.route('/stats', methods=['GET', 'POST'])
-def stats():
-    stats_data = {}
-    if request.method == 'POST':
-        channel_name = request.form['channel_name']
-        stats_data = {
-            "Channel Name": channel_name,
-            "Subscribers": "1.2M",
-            "Videos": "340",
-            "Total Views": "78M"
-        }
-    return render_template('stats.html', stats_data=stats_data)
-
-@app.route('/video_info', methods=['GET', 'POST'])
+# Video Info Viewer
+@app.route("/video-info", methods=["GET", "POST"])
 def video_info():
-    video_info = {}
-    if request.method == 'POST':
-        video_url = request.form['video_url']
+    if request.method == "POST":
+        video_url = request.form["video_url"]
+        yt = YouTube(video_url)
         video_info = {
-            "Title": "Sample Video Title",
-            "Views": "123K",
-            "Likes": "10K",
-            "Comments": "500"
+            "title": yt.title,
+            "views": yt.views,
+            "duration": f"{yt.length // 60}:{yt.length % 60:02d}",
+            "publish_date": yt.publish_date.strftime("%Y-%m-%d"),
+            "description": yt.description
         }
-    return render_template('video_info.html', video_info=video_info)
+        return render_template("video_info.html", video_info=video_info)
+    return render_template("video_info.html", video_info=None)
 
-@app.route('/faq')
+# Informational Pages
+@app.route("/what-is-tag")
+def what_is_tag():
+    return render_template("what-is-tag.html")
+
+@app.route("/what-is-keyword")
+def what_is_keyword():
+    return render_template("what-is-keyword.html")
+
+@app.route("/what-is-thumbnail")
+def what_is_thumbnail():
+    return render_template("what-is-thumbnail.html")
+
+@app.route("/faq")
 def faq():
-    return render_template('faq.html')
+    return render_template("faq.html")
 
-@app.route('/about_site')
+@app.route("/about-site")
 def about_site():
-    return render_template('about_site.html')
+    return render_template("about_site.html")
