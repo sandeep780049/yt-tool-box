@@ -63,3 +63,17 @@ def stats():
             channel_name = channel_url.split("/")[-1] if "/" in channel_url else "Your Channel"
             stats = DummyStats(channel_name, "12.3K", "1.5M")
     return render_template('stats.html', stats=stats)
+
+@app.route('/ai', methods=['GET', 'POST'])
+def ai():
+    title = None
+    description = None
+    if request.method == 'POST':
+        topic = request.form['video_topic']
+        if topic:
+            title = f"{topic} - Must Watch in 2025!"
+            description = (
+                f"Discover everything about {topic}. This video covers tips, tricks, and the best ways to explore or understand {topic}. "
+                f"Don’t forget to like, share, and subscribe for more amazing content!"
+            )
+    return render_template('ai.html', title=title, description=description)
