@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import requests
 from pytube import YouTube
 
 app = Flask(__name__)
@@ -16,96 +15,59 @@ def thumbnail():
         try:
             yt = YouTube(video_url)
             thumbnail_url = yt.thumbnail_url
-        except Exception as e:
-            thumbnail_url = None
+        except:
+            thumbnail_url = "Invalid or unsupported URL"
     return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
 
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
-    tags = []
+    video_tags = []
     if request.method == 'POST':
         video_url = request.form.get('video_url')
         try:
             yt = YouTube(video_url)
-            tags = yt.keywords
+            video_tags = yt.keywords
         except:
-            tags = []
-    return render_template('tags.html', tags=tags)
+            video_tags = ["Could not fetch tags. Please check the URL."]
+    return render_template('tags.html', tags=video_tags)
 
 @app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
-    keywords = []
+    video_keywords = []
     if request.method == 'POST':
-        title = request.form.get('video_title')
-        if title:
-            words = title.lower().split()
-            keywords = list(set(words))
-    return render_template('keywords.html', keywords=keywords)
-
-@app.route('/ai', methods=['GET', 'POST'])
-def ai():
-    generated_title = ""
-    generated_description = ""
-    if request.method == 'POST':
-        topic = request.form.get('video_topic')
-        if topic:
-            generated_title = f"Top 5 Secrets About {topic.title()} You Must Know!"
-            generated_description = f"Discover everything about {topic}. This video dives deep into {topic.lower()} tips, tricks, and hacks to boost your channel growth!"
-    return render_template('ai.html', title=generated_title, description=generated_description)
-
-@app.route('/about')
-def about():
-    return render_template('about_site.html')
-
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
-
-@app.route('/what-is-tag')
-def what_is_tag():
-    return render_template('what-is-tag.html')
-
-@app.route('/what-is-thumbnail')
-def what_is_thumbnail():
-    return render_template('what-is-thumbnail.html')
-
-@app.route('/what-is-keyword')
-def what_is_keyword():
-    return render_template('what-is-keyword.html')
+        video_url = request.form.get('video_url')
+        try:
+            yt = YouTube(video_url)
+            video_keywords = yt.keywords
+        except:
+            video_keywords = ["Could not fetch keywords."]
+    return render_template('keywords.html', keywords=video_keywords)
 
 @app.route('/video_info', methods=['GET', 'POST'])
 def video_info():
-    video_data = {}
+    info = {}
     if request.method == 'POST':
         video_url = request.form.get('video_url')
         try:
             yt = YouTube(video_url)
-            video_data = {
+            info = {
                 'title': yt.title,
                 'author': yt.author,
                 'views': yt.views,
-                'publish_date': yt.publish_date,
                 'length': yt.length,
-                'description': yt.description
+                'publish_date': yt.publish_date
             }
         except:
-            video_data = {}
-    return render_template('video_info.html', video_data=video_data)
+            info['error'] = "Unable to fetch video info."
+    return render_template('video_info.html', info=info)
 
-@app.route('/stats', methods=['GET', 'POST'])
-def stats():
-    stats_data = {}
+@app.route('/ai', methods=['GET', 'POST'])
+def ai():
+    title = ""
+    description = ""
     if request.method == 'POST':
-        video_url = request.form.get('video_url')
-        try:
-            yt = YouTube(video_url)
-            stats_data = {
-                'title': yt.title,
-                'views': yt.views,
-                'likes': "Unavailable via PyTube",
-                'comments': "Unavailable via PyTube",
-                'length': yt.length
-            }
-        except:
-            stats_data = {}
-    return render_template('stats.html', stats_data=stats_data)
+        topic = request.form.get('video_topic')
+        if topic:
+            title = f"🔥 {topic.title()} Explained in 2 Minutes!"
+            description = f"Discover everything about {topic} in just 2 minutes. Stay tuned for quick tips, tricks, and valuable insights!"
+    return render_template('ai.html', title=title, description=description)
