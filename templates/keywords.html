@@ -1,27 +1,52 @@
 {% extends "layout.html" %}
-{% block title %}Keyword Generator{% endblock %}
+
 {% block content %}
-<h2 class="tool-heading">Keyword Generator</h2>
-<form method="POST" action="/keywords" class="form">
-    <input type="text" name="topic" placeholder="Enter your video topic" required class="input-field">
-    <button type="submit" class="btn">Generate Keywords</button>
-</form>
-{% if keywords %}
-    <div class="result">
-        <h3>Suggested Keywords:</h3>
-        <ul>
-            {% for kw in keywords %}
-                <li>{{ kw }}</li>
+<div class="container mt-5">
+    <h1 class="text-center text-danger mb-4">YouTube Keyword Generator</h1>
+    <form method="POST" action="/keywords">
+        <div class="mb-3">
+            <label for="video_topic" class="form-label">Enter Your Video Topic</label>
+            <input type="text" class="form-control" id="video_topic" name="video_topic" placeholder="e.g. Travel Vlog in Goa" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger">Generate Keywords</button>
+        </div>
+    </form>
+
+    {% if keywords %}
+    <div class="mt-4">
+        <h3 class="text-success">Generated Keywords</h3>
+        <ul class="list-group mb-3">
+            {% for keyword in keywords %}
+            <li class="list-group-item">{{ keyword }}</li>
             {% endfor %}
         </ul>
-        <button onclick="copyKeywords()" class="btn">Copy Keywords</button>
-        <script>
-            function copyKeywords() {
-                let keywords = `{% for kw in keywords %}{{ kw }}, {% endfor %}`;
-                navigator.clipboard.writeText(keywords.trim());
-                alert("Keywords copied!");
-            }
-        </script>
+
+        <div class="text-center mb-3">
+            <button class="btn btn-outline-primary" onclick="copyKeywords()">📋 Copy Keywords</button>
+            <button class="btn btn-outline-success" onclick="downloadKeywords()">⬇️ Download Keywords</button>
+        </div>
     </div>
-{% endif %}
+
+    <script>
+        function copyKeywords() {
+            const keywords = {{ keywords|tojson }};
+            const text = keywords.join(', ');
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Keywords copied to clipboard!'))
+                .catch(err => alert('Failed to copy keywords.'));
+        }
+
+        function downloadKeywords() {
+            const keywords = {{ keywords|tojson }};
+            const text = keywords.join(', ');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'keywords.txt';
+            link.click();
+        }
+    </script>
+    {% endif %}
+</div>
 {% endblock %}
