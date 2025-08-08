@@ -1,24 +1,19 @@
-<!-- templates/thumbnail.html -->
 {% extends 'layout.html' %}
-
-{% block title %}Download Thumbnail - YT Tool Box{% endblock %}
-
 {% block content %}
-<h1 class="tool-heading">YouTube Thumbnail Downloader</h1>
-<p class="tool-description">Paste a YouTube video link to download the highest-quality thumbnail image. Simple and fast!</p>
+<div class="tool-section">
+    <h2 class="tool-title">📸 Thumbnail Downloader</h2>
+    <form method="POST" action="{{ url_for('thumbnail') }}">
+        <input type="text" name="video_url" placeholder="Paste YouTube video URL" required>
+        <button type="submit">Get Thumbnail</button>
+    </form>
 
-<form action="/thumbnail" method="POST">
-    <input type="text" name="url" placeholder="Enter YouTube Video URL" required>
-    <button type="submit">Get Thumbnail</button>
-</form>
-
-{% if thumbnail_url %}
-<div class="result-container">
-    <h2>Thumbnail Preview</h2>
-    <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" width="100%">
-    <br><br>
-    <a href="{{ thumbnail_url }}" download class="download-button">Download Thumbnail</a>
+    {% if thumbnail_url %}
+    <div class="result-box">
+        <img src="{{ thumbnail_url }}" alt="Thumbnail" class="thumbnail-preview">
+        <br>
+        <a href="{{ thumbnail_url }}" download class="btn-download">⬇️ Download Thumbnail</a>
+        <button onclick="copyToClipboard('{{ thumbnail_url }}')" class="btn-copy">📋 Copy Link</button>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
-
 {% endblock %}
