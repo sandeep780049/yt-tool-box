@@ -1,70 +1,77 @@
 from flask import Flask, render_template, request
-import openai
-import os
+import random
 
 app = Flask(__name__)
 
-# Load your OpenAI API key from environment variable
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+# Dummy AI generation for Titles, Descriptions, Tags, Keywords
+def generate_titles(topic):
+    return [f"Catchy Title {i+1} for {topic}" for i in range(10)]
+
+def generate_description(topic):
+    return f"This is a detailed and SEO-optimized description about {topic}. It will help your video rank higher and reach a wider audience. Always include the main topic, related terms, and a clear summary of what the video is about. Hashtags and timestamps also improve engagement."
+
+def generate_tags(topic):
+    return [f"{topic} Tag {i+1}" for i in range(10)]
+
+def generate_keywords(topic):
+    return [f"{topic} Keyword {i+1}" for i in range(25)]
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/thumbnail', methods=['GET', 'POST'])
+def thumbnail():
+    thumbnail_url = None
+    if request.method == 'POST':
+        video_url = request.form['video_url']
+        if 'v=' in video_url:
+            video_id = video_url.split('v=')[-1][:11]
+            thumbnail_url = f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg"
+    return render_template('thumbnail.html', thumbnail_url=thumbnail_url)
+
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
     tags = []
     if request.method == 'POST':
-        video_url = request.form.get('video_url')
-        if video_url:
-            # Extract video title (simulate basic topic extraction)
-            topic = extract_topic_from_url(video_url)
-            prompt = f"Generate 25 relevant YouTube tags for a video about: {topic}"
-            try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=200
-                )
-                ai_tags = response.choices[0].message.content
-                tags = ai_tags.strip().split(",")  # AI response is comma-separated
-                tags = [t.strip() for t in tags if t.strip()]
-            except Exception as e:
-                tags = [f"Error generating tags: {str(e)}"]
+        topic = request.form['video_topic']
+        tags = generate_tags(topic)
     return render_template('tags.html', tags=tags)
 
-def extract_topic_from_url(url):
-    # Basic fallback if no real metadata API is used
-    return "the topic of the YouTube video pasted here"
+@app.route('/keywords', methods=['GET', 'POST'])
+def keywords():
+    keywords = []
+    if request.method == 'POST':
+        topic = request.form['video_topic']
+        keywords = generate_keywords(topic)
+    return render_template('keywords.html', keywords=keywords)
 
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
     titles = []
     description = ""
     if request.method == 'POST':
-        topic = request.form.get('video_topic')
-        if topic:
-            try:
-                title_prompt = f"Generate 10 catchy YouTube titles for: {topic}"
-                description_prompt = f"Write a large and SEO-friendly YouTube video description for: {topic}"
-
-                title_response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": title_prompt}],
-                    max_tokens=300
-                )
-                desc_response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": description_prompt}],
-                    max_tokens=400
-                )
-
-                titles = title_response.choices[0].message.content.strip().split("\n")
-                titles = [t.strip("-•123. ") for t in titles if t.strip()]
-                description = desc_response.choices[0].message.content.strip()
-
-            except Exception as e:
-                titles = [f"Error: {str(e)}"]
-                description = "Something went wrong."
+        topic = request.form['video_topic']
+        titles = generate_titles(topic)
+        description = generate_description(topic)
     return render_template('ai.html', titles=titles, description=description)
 
+@app.route('/what-is-tag')
+def what_is_tag():
+    return render_template('what-is-tag.html')
+
+@app.route('/what-is-thumbnail')
+def what_is_thumbnail():
+    return render_template('what-is-thumbnail.html')
+
+@app.route('/what-is-keyword')
+def what_is_keyword():
+    return render_template('what-is-keyword.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+@app.route('/about-site')
+def about_site():
+    return render_template('about_site.html')
