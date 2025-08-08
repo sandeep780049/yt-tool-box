@@ -1,17 +1,63 @@
-<!-- templates/index.html -->
-{% extends "layout.html" %}
-{% block content %}
-<div class="welcome-box">
-    <h1 class="welcome-heading">📺 Welcome to <span class="highlight">YT Tool Box</span></h1>
-    <p class="subheading">Your One-Stop Solution for All YouTube Tools</p>
-</div>
+{% extends 'layout.html' %}
+{% block title %}YT Tool Box - All-in-One YouTube Tools{% endblock %}
 
-<div class="tools-container">
-    <div class="tool-card"><a href="/thumbnail">Thumbnail Downloader</a><p>Download video thumbnails instantly.</p></div>
-    <div class="tool-card"><a href="/tags">Tag Generator</a><p>Generate useful tags from any video.</p></div>
-    <div class="tool-card"><a href="/keywords">Keyword Generator</a><p>Extract video SEO keywords.</p></div>
-    <div class="tool-card"><a href="/ai">AI Title & Description</a><p>Get smart video titles and descriptions.</p></div>
-    <div class="tool-card"><a href="/stats">My Stats Viewer</a><p>View stats like views, duration, and channel.</p></div>
-    <div class="tool-card"><a href="/video_info">Video Info</a><p>Quick info on any YouTube video.</p></div>
+{% block content %}
+<div class="container">
+    <h1 class="welcome-heading">Welcome</h1>
+    <h2 class="welcome-subheading">Welcome to YT Tool Box</h2>
+
+    <div class="tool-grid">
+        <div class="tool-card">
+            <h3><a href="/thumbnail">Thumbnail Downloader</a></h3>
+            <p>Download high-quality YouTube thumbnails with one click.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="/tags">Tag Generator</a></h3>
+            <p>Generate optimized tags to improve video reach and SEO.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="/keywords">Keyword Generator</a></h3>
+            <p>Find the best keywords for your YouTube content strategy.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="/stats">Channel Stats Viewer</a></h3>
+            <p>Get live statistics of any YouTube channel instantly.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="/ai">AI Title & Description Generator</a></h3>
+            <p>Generate catchy titles and descriptions using AI.</p>
+        </div>
+        <div class="tool-card">
+            <h3><a href="/video_info">Video Info Viewer</a></h3>
+            <p>View detailed information about any YouTube video.</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="info-section">
+        <h3><a href="/what-is-tag">What is a YouTube Tag?</a></h3>
+        <p>Tags help YouTube understand your video's content. Use relevant tags to boost discoverability and reach new audiences.</p>
+    </div>
+
+    <div class="info-section">
+        <h3><a href="/what-is-thumbnail">What is a Thumbnail?</a></h3>
+        <p>A thumbnail is the first impression of your video. Eye-catching thumbnails can increase click-through rate and views.</p>
+    </div>
+
+    <div class="info-section">
+        <h3><a href="/what-is-keyword">What is a Keyword?</a></h3>
+        <p>Keywords are the terms people search for. Adding the right keywords can help your video rank higher on YouTube search.</p>
+    </div>
+
+    <div class="info-section">
+        <h3><a href="/about_site">About this Website</a></h3>
+        <p>This site helps YouTubers grow with powerful, free tools — from thumbnails to AI-generated titles and more.</p>
+    </div>
+
+    <div class="info-section">
+        <h3><a href="https://amzn.to/45q05Uz" target="_blank">📱 Best Budget Phone for Creators</a></h3>
+        <p>Looking for a great phone to shoot content? Check this amazing deal!</p>
+    </div>
 </div>
 {% endblock %}
