@@ -1,39 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Download high-quality YouTube thumbnails in one click. Just paste the video URL.">
-    <title>Thumbnail Downloader - YT Tool Box</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    {% include 'navbar.html' %}
-
-    <main class="container">
-        <h1 class="heading">📸 Thumbnail Downloader</h1>
-        <form method="POST" class="tool-form">
-            <input type="text" name="url" placeholder="Paste YouTube video URL" required>
-            <button type="submit">Download Thumbnail</button>
-        </form>
-
-        {% if thumbnail_url %}
-        <div class="result">
-            <h2>Thumbnail Preview:</h2>
-            <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" class="thumbnail-image">
-            <div class="buttons">
-                <a href="{{ thumbnail_url }}" download class="download-btn">Download</a>
-                <button onclick="copyThumbnailURL('{{ thumbnail_url }}')" class="copy-btn">Copy URL</button>
-            </div>
-        </div>
-        {% endif %}
-    </main>
-
-    <script>
-        function copyThumbnailURL(url) {
-            navigator.clipboard.writeText(url);
-            alert("Thumbnail URL copied!");
-        }
-    </script>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Thumbnail Downloader{% endblock %}
+{% block content %}
+<h2 class="tool-heading">Thumbnail Downloader</h2>
+<form method="POST" action="/thumbnail" class="form">
+    <input type="text" name="video_url" placeholder="Enter YouTube Video URL" required class="input-field">
+    <button type="submit" class="btn">Download</button>
+</form>
+{% if thumbnail_url %}
+    <div class="result">
+        <img src="{{ thumbnail_url }}" alt="Thumbnail" class="thumbnail-img">
+        <a href="{{ thumbnail_url }}" download class="btn">Download Thumbnail</a>
+    </div>
+{% endif %}
+{% endblock %}
