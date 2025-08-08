@@ -1,27 +1,27 @@
 {% extends "layout.html" %}
-{% block title %}Tag Generator{% endblock %}
+{% block title %}Tag Extractor{% endblock %}
 {% block content %}
-<div class="container mt-5">
-  <h1 class="text-center text-danger mb-4">Tag Generator</h1>
-  <form method="POST" action="/tags">
-    <div class="mb-3">
-      <label for="video_title" class="form-label">Enter Video Title:</label>
-      <input type="text" class="form-control" id="video_title" name="video_title" placeholder="e.g. Best Mobile Under ₹15000" required>
+<h2 class="tool-heading">Tag Extractor</h2>
+<form method="POST" action="/tags" class="form">
+    <input type="text" name="video_url" placeholder="Enter YouTube Video URL" required class="input-field">
+    <button type="submit" class="btn">Extract Tags</button>
+</form>
+{% if tags %}
+    <div class="result">
+        <h3>Tags:</h3>
+        <ul>
+            {% for tag in tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+        <button onclick="copyTags()" class="btn">Copy Tags</button>
+        <script>
+            function copyTags() {
+                let tags = `{% for tag in tags %}{{ tag }} {% endfor %}`;
+                navigator.clipboard.writeText(tags.trim());
+                alert("Tags copied!");
+            }
+        </script>
     </div>
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary">Generate Tags</button>
-    </div>
-  </form>
-
-  {% if tags %}
-  <div class="mt-5">
-    <h3 class="text-success">Generated Tags:</h3>
-    <p id="tag-result" class="bg-light p-3 rounded">{{ tags }}</p>
-    <div class="text-center mt-3">
-      <button class="btn btn-success me-2" onclick="copyToClipboard('tag-result')">Copy</button>
-      <a href="/download/tags.txt" class="btn btn-danger">Download</a>
-    </div>
-  </div>
-  {% endif %}
-</div>
+{% endif %}
 {% endblock %}
