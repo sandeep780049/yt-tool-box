@@ -1,37 +1,17 @@
-<!-- templates/tags.html -->
-{% extends 'layout.html' %}
-
-{% block title %}Tag Generator - YT Tool Box{% endblock %}
-
-{% block content %}
-<h1 class="tool-heading">YouTube Tag Generator</h1>
-<p class="tool-description">Boost your video SEO by generating optimized tags based on your video topic.</p>
-
-<form action="/tags" method="POST">
-    <input type="text" name="topic" placeholder="Enter your video topic" required>
-    <button type="submit">Generate Tags</button>
-</form>
-
-{% if tags %}
-<div class="result-container">
-    <h2>Generated Tags:</h2>
-    <ul>
-        {% for tag in tags %}
-        <li>{{ tag }}</li>
-        {% endfor %}
-    </ul>
-    <button class="copy-btn" onclick="copyTags()">Copy All</button>
-</div>
-{% endif %}
-
-<script>
-function copyTags() {
-    const tags = Array.from(document.querySelectorAll('.result-container li')).map(li => li.innerText);
-    const textToCopy = tags.join(', ');
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Tags copied to clipboard!');
-    });
-}
-</script>
-
-{% endblock %}
+<!-- Let's begin with the main layout.html that all pages will extend -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Tool Box</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
