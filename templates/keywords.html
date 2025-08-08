@@ -1,37 +1,20 @@
-<!-- templates/keywords.html -->
 {% extends 'layout.html' %}
-
-{% block title %}Keyword Generator - YT Tool Box{% endblock %}
-
 {% block content %}
-<h1 class="tool-heading">YouTube Keyword Generator</h1>
-<p class="tool-description">Generate powerful keywords for your YouTube videos to increase discoverability and reach the right audience.</p>
+<div class="tool-section">
+    <h2 class="tool-title">🔑 Keyword Generator</h2>
+    <form method="POST" action="{{ url_for('keywords') }}">
+        <input type="text" name="topic" placeholder="Enter your video topic" required>
+        <button type="submit">Generate Keywords</button>
+    </form>
 
-<form action="/keywords" method="POST">
-    <input type="text" name="topic" placeholder="Enter your video topic" required>
-    <button type="submit">Generate Keywords</button>
-</form>
-
-{% if keywords %}
-<div class="result-container">
-    <h2>Generated Keywords:</h2>
-    <ul>
-        {% for keyword in keywords %}
-        <li>{{ keyword }}</li>
-        {% endfor %}
-    </ul>
-    <button class="copy-btn" onclick="copyKeywords()">Copy All</button>
+    {% if keywords %}
+    <div class="result-box">
+        <textarea id="keywordOutput" readonly>
+{% for keyword in keywords %}{{ keyword }}{% if not loop.last %}, {% endif %}{% endfor %}
+        </textarea>
+        <br>
+        <button onclick="copyToClipboard(document.getElementById('keywordOutput').value)" class="btn-copy">📋 Copy Keywords</button>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
-
-<script>
-function copyKeywords() {
-    const keywords = Array.from(document.querySelectorAll('.result-container li')).map(li => li.innerText);
-    const textToCopy = keywords.join(', ');
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Keywords copied to clipboard!');
-    });
-}
-</script>
-
 {% endblock %}
