@@ -1,36 +1,24 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<div class="tool-container">
-    <h1 class="tool-heading">🎬 YouTube Video Info Viewer</h1>
-    <form method="POST">
-        <input type="text" name="video_url" placeholder="Paste your YouTube Video URL..." required>
-        <button type="submit">Get Info</button>
+<div class="tool-section">
+    <h2 class="tool-heading">Video Info Viewer</h2>
+    <p class="tool-description">Enter a YouTube video URL to see details like title, views, duration, and more!</p>
+
+    <form action="/video-info" method="POST" class="tool-form">
+        <input type="text" name="video_url" placeholder="Enter YouTube Video URL" required class="input-box">
+        <button type="submit" class="submit-btn">Get Info</button>
     </form>
 
-    {% if video %}
-        <div class="output-box">
-            <h2>🎥 Video Details:</h2>
-            <textarea readonly id="videoOutput">
-Title: {{ video.title }}
-Views: {{ video.views }}
-Uploaded On: {{ video.upload_date }}
-Channel: {{ video.channel }}
-            </textarea>
-
-            <div class="button-row">
-                <button onclick="copyToClipboard('videoOutput')">📋 Copy Info</button>
-                <a href="/download?type=video" class="download-btn">⬇️ Download</a>
-            </div>
-        </div>
+    {% if video_info %}
+    <div class="result-box">
+        <h3>Video Information</h3>
+        <p><strong>Title:</strong> {{ video_info.title }}</p>
+        <p><strong>Views:</strong> {{ video_info.views }}</p>
+        <p><strong>Duration:</strong> {{ video_info.duration }}</p>
+        <p><strong>Published:</strong> {{ video_info.publish_date }}</p>
+        <p><strong>Description:</strong><br>{{ video_info.description }}</p>
+    </div>
     {% endif %}
 </div>
-
-<div class="info-section">
-    <h2>Why Use the Video Info Viewer?</h2>
-    <p>Understanding video performance is key to improving your content. With this tool, you can instantly analyze any YouTube video’s stats to learn what works and what doesn’t. Use it to study trending videos or check your own uploads.</p>
-
-    <p><strong>Content Tip:</strong> Pair your videos with high-quality visuals using a great phone like the <a href="https://amzn.to/45q05Uz" target="_blank">Samsung Galaxy Creator Edition</a>.</p>
-</div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
 {% endblock %}
