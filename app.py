@@ -3,107 +3,102 @@ from pytube import YouTube
 import random
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key_here"  # Required to fix 'Bad Request'
 
 @app.route('/')
-def index():
-    return render_template("index.html")
+def home():
+    return render_template('index.html')
 
 @app.route('/thumbnail', methods=['GET', 'POST'])
 def thumbnail():
-    thumbnail_url = None
     if request.method == 'POST':
-        url = request.form.get('video_url')
-        if url:
-            try:
-                yt = YouTube(url)
-                thumbnail_url = yt.thumbnail_url
-            except:
-                thumbnail_url = "Error retrieving thumbnail."
-    return render_template("thumbnail.html", thumbnail_url=thumbnail_url)
+        url = request.form['url']
+        try:
+            yt = YouTube(url)
+            thumbnail_url = yt.thumbnail_url
+            return render_template('thumbnail.html', thumbnail=thumbnail_url, url=url)
+        except:
+            return render_template('thumbnail.html', error="Invalid URL or video")
+    return render_template('thumbnail.html')
 
 @app.route('/tags', methods=['GET', 'POST'])
 def tags():
-    tags = []
     if request.method == 'POST':
-        url = request.form.get('video_url')
-        if url:
-            try:
-                yt = YouTube(url)
-                tags = yt.keywords
-            except:
-                tags = ["Error retrieving tags."]
-    return render_template("tags.html", tags=tags)
+        url = request.form['url']
+        try:
+            yt = YouTube(url)
+            tags = yt.keywords
+            return render_template('tags.html', tags=tags, url=url)
+        except:
+            return render_template('tags.html', error="Invalid video URL")
+    return render_template('tags.html')
 
 @app.route('/keywords', methods=['GET', 'POST'])
 def keywords():
-    keywords = []
     if request.method == 'POST':
-        url = request.form.get('video_url')
-        if url:
-            try:
-                yt = YouTube(url)
-                keywords = yt.keywords
-            except:
-                keywords = ["No keywords found."]
-    return render_template("keywords.html", keywords=keywords)
+        topic = request.form['topic']
+        generated_keywords = topic.lower().split() + ["viral", "trending", "2025"]
+        return render_template('keywords.html', keywords=generated_keywords, topic=topic)
+    return render_template('keywords.html')
 
 @app.route('/ai', methods=['GET', 'POST'])
 def ai():
-    titles = []
     if request.method == 'POST':
-        topic = request.form.get('topic')
-        if topic:
-            titles = [f"{topic} - Top Secrets {i}" for i in range(1, 11)]
-    return render_template("ai.html", titles=titles)
+        topic = request.form['topic']
+        title = f"🔥 {topic.title()} - Must Watch in 2025!"
+        description = f"This video on {topic} covers everything you need to know. Stay tuned and subscribe for more updates!"
+        return render_template('ai.html', title=title, description=description, topic=topic)
+    return render_template('ai.html')
 
 @app.route('/stats', methods=['GET', 'POST'])
 def stats():
-    stats = {}
     if request.method == 'POST':
-        url = request.form.get('video_url')
+        url = request.form['url']
         try:
             yt = YouTube(url)
-            stats = {
-                "title": yt.title,
-                "views": yt.views,
-                "length": yt.length,
-                "author": yt.author
-            }
+            title = yt.title
+            views = yt.views
+            author = yt.author
+            length = yt.length
+            return render_template('stats.html', title=title, views=views, author=author, length=length, url=url)
         except:
-            stats = {"error": "Failed to fetch video stats."}
-    return render_template("stats.html", stats=stats)
+            return render_template('stats.html', error="Invalid URL or video")
+    return render_template('stats.html')
 
 @app.route('/video_info', methods=['GET', 'POST'])
 def video_info():
-    info = {}
     if request.method == 'POST':
-        url = request.form.get('video_url')
+        url = request.form['url']
         try:
             yt = YouTube(url)
             info = {
-                "title": yt.title,
-                "author": yt.author,
-                "publish_date": yt.publish_date,
-                "description": yt.description,
-                "views": yt.views,
-                "length": yt.length
+                'Title': yt.title,
+                'Author': yt.author,
+                'Publish Date': yt.publish_date,
+                'Views': yt.views,
+                'Length (s)': yt.length,
+                'Description': yt.description
             }
+            return render_template('video_info.html', info=info, url=url)
         except:
-            info = {"error": "Could not retrieve video info."}
-    return render_template("video_info.html", info=info)
+            return render_template('video_info.html', error="Invalid video URL")
+    return render_template('video_info.html')
 
-@app.route('/whatis')
-def whatis():
-    return render_template("whatis.html")
-
-@app.route('/about')
-def about():
-    return render_template("about.html")
+@app.route('/about_site')
+def about_site():
+    return render_template('about_site.html')
 
 @app.route('/faq')
 def faq():
-    return render_template("faq.html")
+    return render_template('faq.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/what-is-tag')
+def what_is_tag():
+    return render_template('what-is-tag.html')
+
+@app.route('/what-is-thumbnail')
+def what_is_thumbnail():
+    return render_template('what-is-thumbnail.html')
+
+@app.route('/what-is-keyword')
+def what_is_keyword():
+    return render_template('what-is-keyword.html')
