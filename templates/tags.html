@@ -1,36 +1,27 @@
 {% extends "layout.html" %}
-{% block title %}YouTube Tag Generator{% endblock %}
-
+{% block title %}Tag Generator{% endblock %}
 {% block content %}
-<div class="tool-section">
-    <h1 class="main-heading">🎯 YouTube Tags Generator</h1>
-    <p class="sub-description">Enter your video topic and get powerful, SEO-friendly tags to help your content reach the right audience.</p>
-    <form method="POST">
-        <input type="text" name="video_topic" placeholder="Enter your video topic..." required>
-        <button type="submit">Generate Tags</button>
-    </form>
-
-    {% if tags %}
-    <div class="result-box">
-        <h2>Generated Tags:</h2>
-        <textarea id="tagOutput" readonly>{{ tags }}</textarea>
-        <div class="btn-group">
-            <button onclick="copyToClipboard('tagOutput')">📋 Copy</button>
-            <a href="/download/tags.txt" download><button>⬇️ Download</button></a>
-        </div>
+<div class="container mt-5">
+  <h1 class="text-center text-danger mb-4">Tag Generator</h1>
+  <form method="POST" action="/tags">
+    <div class="mb-3">
+      <label for="video_title" class="form-label">Enter Video Title:</label>
+      <input type="text" class="form-control" id="video_title" name="video_title" placeholder="e.g. Best Mobile Under ₹15000" required>
     </div>
-    {% endif %}
-
-    <hr>
-
-    <div class="info-section">
-        <h2>What are YouTube Tags?</h2>
-        <p>YouTube tags help your videos get discovered by users searching relevant keywords. They improve SEO and are essential to rank higher in search results. Add relevant, trending tags to boost visibility and grow your channel organically.</p>
-        <p>🎯 Pro Tip: Always use 10–15 relevant tags based on your title, description, and content type. This increases your video's discoverability by 30%.</p>
-
-        <h2>📱 Recommended Creator Gear</h2>
-        <p>If you're starting out or upgrading, <strong>Samsung Galaxy M14 5G</strong> is an affordable, powerful phone perfect for filming YouTube content. Great camera, long battery, and budget-friendly.</p>
-        <p><a href="https://amzn.to/45q05Uz" target="_blank">📦 Check it out on Amazon »</a></p>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">Generate Tags</button>
     </div>
+  </form>
+
+  {% if tags %}
+  <div class="mt-5">
+    <h3 class="text-success">Generated Tags:</h3>
+    <p id="tag-result" class="bg-light p-3 rounded">{{ tags }}</p>
+    <div class="text-center mt-3">
+      <button class="btn btn-success me-2" onclick="copyToClipboard('tag-result')">Copy</button>
+      <a href="/download/tags.txt" class="btn btn-danger">Download</a>
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
