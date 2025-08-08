@@ -1,39 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Let's begin with the main layout.html that all pages will extend --><!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YT Tool Box</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
-
-    <header class="navbar">
-        <div class="nav-title">YT Tool Box</div>
-        <nav class="nav-links">
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('thumbnail') }}">Thumbnail Downloader</a>
-            <a href="{{ url_for('stats') }}">My Stats Viewer</a>
-            <a href="{{ url_for('ai') }}">AI Title & Description</a>
-        </nav>
-    </header>
-
-    <main class="main-content">
+    {% include 'navbar.html' %}
+    <main>
         {% block content %}{% endblock %}
     </main>
-
-    <footer class="footer">
-        <div>
-            <strong>What is Tag?</strong> Tags are keywords that help your videos appear in YouTube search results and gain more visibility.
-        </div>
-        <div>
-            <strong>What is Thumbnail?</strong> A thumbnail is the first thing users see on YouTube — a clickable snapshot of your video.
-        </div>
-        <div>
-            <strong>What is Keyword?</strong> Keywords improve your video’s SEO by helping YouTube understand your video content.
-        </div>
-    </footer>
-
 </body>
 </html>
