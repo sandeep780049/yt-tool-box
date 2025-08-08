@@ -77,3 +77,23 @@ def ai():
                 f"Don’t forget to like, share, and subscribe for more amazing content!"
             )
     return render_template('ai.html', title=title, description=description)
+
+@app.route('/video-info', methods=['GET', 'POST'])
+def video_info():
+    class VideoData:
+        def __init__(self, title, channel, duration):
+            self.title = title
+            self.channel = channel
+            self.duration = duration
+
+    info = None
+    if request.method == 'POST':
+        video_url = request.form['video_url']
+        video_id = extract_video_id(video_url)
+        if video_id:
+            info = VideoData(
+                title="How to Grow on YouTube",
+                channel="Sample Channel",
+                duration="12:34"
+            )
+    return render_template('video_info.html', info=info)
