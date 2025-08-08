@@ -1,15 +1,46 @@
 {% extends "layout.html" %}
-{% block title %}Thumbnail Downloader{% endblock %}
+{% block title %}Thumbnail Downloader - YT Tool Box{% endblock %}
 {% block content %}
-<h2 class="tool-heading">Thumbnail Downloader</h2>
-<form method="POST" action="/thumbnail" class="form">
-    <input type="text" name="video_url" placeholder="Enter YouTube Video URL" required class="input-field">
-    <button type="submit" class="btn">Download</button>
-</form>
-{% if thumbnail_url %}
-    <div class="result">
-        <img src="{{ thumbnail_url }}" alt="Thumbnail" class="thumbnail-img">
-        <a href="{{ thumbnail_url }}" download class="btn">Download Thumbnail</a>
+
+<div class="container mt-5 text-center">
+    <h1 class="display-4 text-danger mb-4 shadow-sm">Thumbnail Downloader</h1>
+    <p class="lead mb-4">Paste any YouTube video link to get its HD thumbnail instantly!</p>
+    
+    <form method="POST" action="/thumbnail">
+        <div class="form-group">
+            <input type="text" name="video_url" class="form-control form-control-lg mb-3"
+                   placeholder="Enter YouTube video URL" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn-lg">
+            <i class="bi bi-image-fill"></i> Get Thumbnail
+        </button>
+    </form>
+
+    {% if thumbnail_url %}
+    <div class="mt-5">
+        <h4 class="mb-3 text-success">HD Thumbnail:</h4>
+        <img src="{{ thumbnail_url }}" alt="YouTube Thumbnail" class="img-fluid rounded shadow" style="max-width: 100%; height: auto;">
+        
+        <div class="mt-4 d-flex justify-content-center flex-wrap gap-3">
+            <a href="{{ thumbnail_url }}" class="btn btn-success" download>
+                <i class="bi bi-download"></i> Download
+            </a>
+            <button class="btn btn-primary" onclick="copyThumbnailURL('{{ thumbnail_url }}')">
+                <i class="bi bi-clipboard"></i> Copy URL
+            </button>
+        </div>
     </div>
-{% endif %}
+    {% endif %}
+</div>
+
+<script>
+function copyThumbnailURL(url) {
+    navigator.clipboard.writeText(url).then(function() {
+        alert("Thumbnail URL copied to clipboard!");
+    }, function(err) {
+        alert("Failed to copy: ", err);
+    });
+}
+</script>
+
 {% endblock %}
